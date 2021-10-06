@@ -1,0 +1,6 @@
+.container-todo {
+	display: flex;
+	margin: 0.5rem auto;
+	align-items: center;
+	gap: 0.5rem;
+}

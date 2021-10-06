@@ -1,12 +1,12 @@
 import './App.css'
-import Budgets from './features/budgets/Budgets'
-import Transactions from './features/transactions/Transactions'
+import Title from './components/title/Title'
+import Todos from './features/todos/Todos'
 
 function App() {
 	return (
 		<div className='App'>
-			<Budgets />
-			<Transactions />
+			<Title />
+			<Todos />
 		</div>
 	)
 }
