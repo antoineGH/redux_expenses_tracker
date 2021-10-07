@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { act } from 'react-dom/test-utils'
 
 // Slice Reducer
 ////////////////////////////////
@@ -23,10 +22,17 @@ export const todoSlice = createSlice({
 				(todo) => todo.description !== action.payload
 			)
 		},
+		toggleCheck: (state, action) => {
+			const indexObject = state.value.findIndex(
+				(todo) => todo.description === action.payload
+			)
+			state.value[indexObject].completed =
+				!state.value[indexObject].completed
+		},
 	},
 })
 
-export const { addTodo, deleteTodo } = todoSlice.actions
+export const { addTodo, deleteTodo, toggleCheck } = todoSlice.actions
 
 // Selectors
 ////////////////////////////////
