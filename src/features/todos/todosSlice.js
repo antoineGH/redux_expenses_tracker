@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { act } from 'react-dom/test-utils'
 
 // Slice Reducer
 ////////////////////////////////
@@ -17,10 +18,15 @@ export const todoSlice = createSlice({
 		addTodo: (state, action) => {
 			state.value.push({ description: action.payload, completed: false })
 		},
+		deleteTodo: (state, action) => {
+			state.value = state.value.filter(
+				(todo) => todo.description !== action.payload
+			)
+		},
 	},
 })
 
-export const { addTodo } = todoSlice.actions
+export const { addTodo, deleteTodo } = todoSlice.actions
 
 // Selectors
 ////////////////////////////////
