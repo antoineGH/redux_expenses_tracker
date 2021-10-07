@@ -7,7 +7,7 @@ export default function Todo(props) {
 		<div className='container-todo'>
 			<span>{todo.description}</span>
 			<input type='checkbox' defaultChecked={todo.completed} />
-			<button>Delete</button>
+			<button className='btn-delete'>&#9587;</button>
 		</div>
 	)
 }

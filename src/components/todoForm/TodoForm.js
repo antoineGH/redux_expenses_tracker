@@ -9,10 +9,9 @@ export default function TodoForm(props) {
 	const todos = useSelector(selectTodos)
 
 	const handleAddTodo = () => {
-		if (todos.some((todo) => todo.description === addTodoValue)) {
-			console.log('already existing')
-			return
-		}
+		if (!addTodoValue) return
+		if (todos.some((todo) => todo.description === addTodoValue)) return
+
 		dispatch(addTodo(addTodoValue))
 		setAddTodoValue('')
 	}

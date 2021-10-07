@@ -1,7 +1,7 @@
 .container-todolist {
-	max-width: 800px;
+	max-width: 250px;
+	margin: auto;
+	margin-top: 1rem;
 	display: flex;
-	margin: 1rem auto;
-	justify-content: center;
 	flex-direction: column;
 }
