@@ -1,18 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addTodo } from '../../features/todos/todosSlice'
-import { selectTodos } from '../../features/todos/todosSlice'
 
 export default function TodoForm(props) {
+	const { handleAddTodo } = props
 	const [addTodoValue, setAddTodoValue] = useState('')
-	const dispatch = useDispatch()
-	const todos = useSelector(selectTodos)
 
-	const handleAddTodo = () => {
+	const handleClick = () => {
 		if (!addTodoValue) return
-		if (todos.some((todo) => todo.description === addTodoValue)) return
-
-		dispatch(addTodo(addTodoValue))
+		handleAddTodo(addTodoValue)
 		setAddTodoValue('')
 	}
 
@@ -25,7 +19,7 @@ export default function TodoForm(props) {
 				value={addTodoValue}
 				onChange={(e) => setAddTodoValue(e.target.value)}
 			/>
-			<button className='btn-addtodo' onClick={handleAddTodo}>
+			<button className='btn-addtodo' onClick={handleClick}>
 				Add Todo
 			</button>
 		</div>
