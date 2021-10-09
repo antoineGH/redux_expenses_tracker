@@ -1,14 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 // Slice Reducer
 ////////////////////////////////
 
 const initialValue = {
-	value: [
-		{ description: 'Clean', completed: true },
-		{ description: 'Tidy', completed: false },
-	],
+	value: [],
+	isLoading: false,
+	hasError: false,
 }
+
+export const loadTodos = createAsyncThunk(
+	'todos/getAllTodos',
+	async (number = 10) => {
+		const data = await fetch(`http://127.0.0.1:5000/api/todos/${number}`)
+		const json = await data.json()
+		return json
+	}
+)
 
 export const todoSlice = createSlice({
 	name: 'todos',
@@ -30,6 +38,21 @@ export const todoSlice = createSlice({
 				!state.value[indexObject].completed
 		},
 	},
+	extraReducers: {
+		[loadTodos.pending]: (state) => {
+			state.isLoading = true
+			state.hasError = false
+		},
+		[loadTodos.fulfilled]: (state, action) => {
+			state.value = action.payload
+			state.isLoading = false
+			state.hasError = false
+		},
+		[loadTodos.rejected]: (state) => {
+			state.isLoading = false
+			state.hasError = true
+		},
+	},
 })
 
 export const { addTodo, deleteTodo, toggleCheck } = todoSlice.actions
@@ -38,5 +61,6 @@ export const { addTodo, deleteTodo, toggleCheck } = todoSlice.actions
 ////////////////////////////////
 
 export const selectTodos = (state) => state.todos.value
-
+export const selectIsLoading = (state) => state.todos.isLoading
+export const selectHasError = (state) => state.todos.hasError
 export default todoSlice.reducer
