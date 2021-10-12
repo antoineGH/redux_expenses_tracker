@@ -9,7 +9,7 @@ export default function TodoList(props) {
 			{todos.map((todo) => {
 				return (
 					<Todo
-						key={todo.description}
+						key={todo.todo_id}
 						todo={todo}
 						handleDeleteTodo={handleDeleteTodo}
 						handleToggleTodo={handleToggleTodo}
