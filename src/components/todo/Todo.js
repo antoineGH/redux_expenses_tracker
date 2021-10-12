@@ -6,15 +6,15 @@ export default function Todo(props) {
 
 	return (
 		<div className='container-todo'>
-			<span>{todo.description}</span>
+			<span>{todo.todo_description}</span>
 			<input
 				type='checkbox'
 				checked={todo.completed}
-				onChange={() => handleToggleTodo(todo.description)}
+				onChange={() => handleToggleTodo(todo.todo_id)}
 			/>
 			<button
 				className='btn-delete'
-				onClick={() => handleDeleteTodo(todo.description)}>
+				onClick={() => handleDeleteTodo(todo.todo_id)}>
 				&#9587;
 			</button>
 		</div>

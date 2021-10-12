@@ -24,17 +24,17 @@ export default function Todos() {
 		dispatch(loadTodos())
 	}, [dispatch])
 
-	const handleAddTodo = (addTodoDesc) => {
-		if (todos.some((todo) => todo.description === addTodoDesc)) return
-		dispatch(addTodo(addTodoDesc))
+	const handleAddTodo = (todo_id) => {
+		if (todos.some((todo) => todo.todo_id === todo_id)) return
+		dispatch(addTodo(todo_id))
 	}
 
-	const handleDeleteTodo = (deleteTodoDesc) => {
-		dispatch(deleteTodo(deleteTodoDesc))
+	const handleDeleteTodo = (todo_id) => {
+		dispatch(deleteTodo(todo_id))
 	}
 
-	const handleToggleTodo = (toggleTodoDesc) => {
-		dispatch(toggleCheck(toggleTodoDesc))
+	const handleToggleTodo = (todo_id) => {
+		dispatch(toggleCheck(todo_id))
 	}
 
 	const handleTryAgain = () => {

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { authFetch } from '../../auth/authHook'
 
 // Slice Reducer
 ////////////////////////////////
@@ -9,30 +10,33 @@ const initialValue = {
 	hasError: false,
 }
 
-export const loadTodos = createAsyncThunk(
-	'todos/getAllTodos',
-	async (number = 10) => {
-		const data = await fetch(`http://127.0.0.1:5000/api/todos/${number}`)
-		const json = await data.json()
-		return json
-	}
-)
+export const loadTodos = createAsyncThunk('todos/getAllTodos', async () => {
+	const data = await authFetch(
+		`https://flask-todoapp-api.herokuapp.com/api/todos`
+	)
+	const json = await data.json()
+	return json
+})
 
 export const todoSlice = createSlice({
 	name: 'todos',
 	initialState: initialValue,
 	reducers: {
 		addTodo: (state, action) => {
-			state.value.push({ description: action.payload, completed: false })
+			state.value.push({
+				todo_id: 5, //To Change with MiddleWare to return newly create todoID in payload
+				todo_description: action.payload,
+				completed: false,
+			})
 		},
 		deleteTodo: (state, action) => {
 			state.value = state.value.filter(
-				(todo) => todo.description !== action.payload
+				(todo) => todo.todo_id !== action.payload
 			)
 		},
 		toggleCheck: (state, action) => {
 			const indexObject = state.value.findIndex(
-				(todo) => todo.description === action.payload
+				(todo) => todo.todo_id === action.payload
 			)
 			state.value[indexObject].completed =
 				!state.value[indexObject].completed
@@ -44,7 +48,7 @@ export const todoSlice = createSlice({
 			state.hasError = false
 		},
 		[loadTodos.fulfilled]: (state, action) => {
-			state.value = action.payload
+			state.value = action.payload.todos
 			state.isLoading = false
 			state.hasError = false
 		},
