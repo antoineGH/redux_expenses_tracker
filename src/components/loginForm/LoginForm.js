@@ -84,7 +84,9 @@ export default function LoginForm() {
 					{errors.password && touched.password && (
 						<div className='error_field'>{errors.password}</div>
 					)}
-					<button type='submit'>Login</button>
+					<button type='submit' disabled={isDisabled}>
+						Login
+					</button>
 				</form>
 			</div>
 			<div>
