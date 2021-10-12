@@ -12,7 +12,6 @@ import {
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
 import TodoList from '../../components/todoList/TodoList'
-import { css } from '@emotion/react'
 import BarLoader from 'react-spinners/BarLoader'
 
 export default function Todos() {

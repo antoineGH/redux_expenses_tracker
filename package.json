@@ -12,6 +12,7 @@
     "react-redux": "^7.2.5",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
+    "react-token-auth": "^1.1.9",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

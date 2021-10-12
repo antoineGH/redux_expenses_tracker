@@ -9247,6 +9247,11 @@ react-spinners@^0.11.0:
   dependencies:
     "@emotion/react" "^11.1.4"
 
+react-token-auth@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-token-auth/-/react-token-auth-1.1.9.tgz#1656ed80b1403a14f51488c432b2ed65bd2e906b"
+  integrity sha512-AtC87tdURl7+o3j3GYS9hYho9PEAG9KjctQ3FPkgiSftGl4qC3AK+jYYByKxphGbBJaV3eOt7rAbR3ApWVQXVg==
+
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
