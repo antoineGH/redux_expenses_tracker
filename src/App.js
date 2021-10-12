@@ -1,4 +1,5 @@
 import './App.css'
+import { BrowserRouter, Switch } from 'react-router-dom'
 import { useAuth } from './auth/authHook'
 import UnAuthApp from './components/unAuthApp/UnAuthApp'
 import AuthApp from './components/authApp/AuthApp'
@@ -14,8 +15,12 @@ function App() {
 
 	return (
 		<div className='App'>
-			{!logged && <UnAuthApp />}
-			{logged && <AuthApp />}
+			<BrowserRouter>
+				<Switch>
+					{!logged && <UnAuthApp />}
+					{logged && <AuthApp />}
+				</Switch>
+			</BrowserRouter>
 		</div>
 	)
 }

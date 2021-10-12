@@ -1,5 +1,16 @@
 import React from 'react'
+import { Switch, Route, Redirect } from 'react-router'
+import LoginForm from '../loginForm/LoginForm'
+import RegisterForm from '../registerForm/RegisterForm'
 
 export default function UnAuthApp() {
-	return <div>UnAuthApp</div>
+	return (
+		<>
+			<Switch>
+				<Route path='/login' component={LoginForm} />
+				<Route path='/register' component={RegisterForm} />
+				<Redirect from='*' to='/login' />
+			</Switch>
+		</>
+	)
 }
