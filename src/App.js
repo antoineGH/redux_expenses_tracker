@@ -16,7 +16,7 @@ function App() {
 	if (logged) {
 		payload = getPayload()
 	}
-	console.log(payload)
+	console.log('Payload => ' + payload)
 	// Store Payload in Redux Store
 
 	return (
@@ -26,15 +26,15 @@ function App() {
 					<SiderTodo />
 					<Layout>
 						<Navbar />
-						<Switch>
-							<Content>
-								<div>
+						<Content>
+							<div>
+								<Switch>
 									{!logged && <UnAuthApp />}
 									{logged && <AuthApp />}
-								</div>
-							</Content>
-							<FooterTodo />
-						</Switch>
+								</Switch>
+							</div>
+						</Content>
+						<FooterTodo />
 					</Layout>
 				</Layout>
 			</BrowserRouter>
