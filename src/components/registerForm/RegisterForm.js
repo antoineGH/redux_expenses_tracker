@@ -4,13 +4,15 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import createUser from '../../utils/createUser'
 import { openNotificationWithIcon } from '../../utils/notification'
-import { Form, Input, Button, Typography } from 'antd'
+import { Spin, Form, Input, Button, Typography } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import './RegisterForm.css'
 
 export default function RegisterForm() {
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
 	const { Text } = Typography
+	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
 	const regexNoSpecial = /^[a-zA-Z. ]*$/
@@ -216,7 +218,10 @@ export default function RegisterForm() {
 								onClick={() => handleSubmit()}
 								type='primary'
 								disabled={isDisabled}>
-								Register
+								Register{' '}
+								{isDisabled && (
+									<Spin size='small' indicator={antIcon} />
+								)}
 							</Button>
 						</Form.Item>
 					</Form>

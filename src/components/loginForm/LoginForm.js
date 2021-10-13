@@ -4,13 +4,15 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import requestLogin from '../../utils/requestLogin'
 import { login } from '../../auth/authHook'
-import { Form, Input, Button, Typography } from 'antd'
+import { Spin, Form, Input, Button, Typography } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import './LoginForm.css'
 
 export default function LoginForm() {
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
 	const { Text } = Typography
+	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
 	const validationSchema = Yup.object({
@@ -108,7 +110,10 @@ export default function LoginForm() {
 							onClick={() => handleSubmit()}
 							type='primary'
 							disabled={isDisabled}>
-							Login
+							Login{' '}
+							{isDisabled && (
+								<Spin size='small' indicator={antIcon} />
+							)}
 						</Button>
 					</Form.Item>
 				</Form>

@@ -12,7 +12,8 @@ import {
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
 import TodoList from '../../components/todoList/TodoList'
-import BarLoader from 'react-spinners/BarLoader'
+
+import { Spin } from 'antd'
 
 export default function Todos() {
 	const todos = useSelector(selectTodos)
@@ -46,11 +47,7 @@ export default function Todos() {
 			<TodoForm handleAddTodo={handleAddTodo} />
 			{isLoading && (
 				<div className='div-barloader'>
-					<BarLoader
-						css='display: flex; justify-content: center;'
-						color={'#0075ff'}
-						size={15}
-					/>
+					<Spin />
 				</div>
 			)}
 			{hasError ? (
