@@ -3,10 +3,13 @@ import { useHistory } from 'react-router'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import createUser from '../../utils/createUser'
+import { Form, Input, Button, Typography } from 'antd'
+import './RegisterForm.css'
 
 export default function RegisterForm() {
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
+	const { Text } = Typography
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
 	const regexNoSpecial = /^[a-zA-Z. ]*$/
@@ -78,69 +81,146 @@ export default function RegisterForm() {
 		<>
 			<div>
 				<h1>Register</h1>
-				<form onSubmit={handleSubmit}>
-					<input
-						id='email'
-						name='email'
-						type='text'
-						placeholder='Email'
-						onBlur={handleBlur}
-						value={values.email}
-						onChange={handleChange}
-					/>
-					{errors.email && touched.email && (
-						<div className='error_field'>{errors.email}</div>
-					)}
-					<input
-						id='password'
-						name='password'
-						type='password'
-						placeholder='Password'
-						onBlur={handleBlur}
-						value={values.password}
-						onChange={handleChange}
-					/>
-					{errors.password && touched.password && (
-						<div className='error_field'>{errors.password}</div>
-					)}
-					<input
-						id='confirm_password'
-						name='confirm_password'
-						type='password'
-						placeholder='Confirm Password'
-						onBlur={handleBlur}
-						value={values.confirm_password}
-						onChange={handleChange}
-					/>
-					<input
-						id='first_name'
-						name='first_name'
-						type='text'
-						placeholder='First Name'
-						onBlur={handleBlur}
-						value={values.first_name}
-						onChange={handleChange}
-					/>
-					{errors.first_name && touched.first_name && (
-						<div className='error_field'>{errors.first_name}</div>
-					)}
-					<input
-						id='last_name'
-						name='last_name'
-						type='text'
-						placeholder='Last Name'
-						onBlur={handleBlur}
-						value={values.last_name}
-						onChange={handleChange}
-					/>
-					{errors.last_name && touched.last_name && (
-						<div className='error_field'>{errors.last_name}</div>
-					)}
-					<button type='submit' disabled={isDisabled}>
-						Register
-					</button>
-				</form>
-				<button onClick={() => history.push('/login')}>Login</button>
+				<div className='container-form'>
+					<Form onSubmit={handleSubmit} layout='vertical'>
+						<Form.Item label='Email'>
+							<Input
+								id='email'
+								name='email'
+								type='text'
+								placeholder='Email'
+								className={
+									errors.email &&
+									touched.email &&
+									'error_field'
+								}
+								onBlur={handleBlur}
+								value={values.email}
+								onChange={handleChange}
+							/>
+							<div className='errors'>
+								{errors.email && touched.email && (
+									<Text type='danger'>{errors.email}</Text>
+								)}
+							</div>
+						</Form.Item>
+
+						<Form.Item label='Password'>
+							<Input
+								id='password'
+								name='password'
+								type='password'
+								placeholder='Password'
+								className={
+									errors.password &&
+									touched.password &&
+									'error_field'
+								}
+								onBlur={handleBlur}
+								value={values.password}
+								onChange={handleChange}
+							/>
+							<div className='errors'>
+								{errors.password && touched.password && (
+									<Text type='danger'>{errors.password}</Text>
+								)}
+							</div>
+						</Form.Item>
+
+						<Form.Item label='Confirm Password'>
+							<Input
+								id='confirm_password'
+								name='confirm_password'
+								type='password'
+								placeholder='Confirm Password'
+								className={
+									errors.confirm_password &&
+									touched.confirm_password &&
+									'error_field'
+								}
+								onBlur={handleBlur}
+								value={values.confirm_password}
+								onChange={handleChange}
+							/>
+							<div className='errors'>
+								{errors.confirm_password &&
+									touched.confirm_password && (
+										<Text type='danger'>
+											{errors.confirm_password}
+										</Text>
+									)}
+							</div>
+						</Form.Item>
+
+						<Form.Item label='First Name'>
+							<Input
+								id='first_name'
+								name='first_name'
+								type='text'
+								placeholder='First Name'
+								className={
+									errors.first_name &&
+									touched.first_name &&
+									'error_field'
+								}
+								onBlur={handleBlur}
+								value={values.first_name}
+								onChange={handleChange}
+							/>
+							<div className='errors'>
+								{errors.first_name && touched.first_name && (
+									<Text type='danger'>
+										{errors.first_name}
+									</Text>
+								)}
+							</div>
+						</Form.Item>
+
+						<Form.Item label='Last Name'>
+							<Input
+								id='last_name'
+								name='last_name'
+								type='text'
+								placeholder='Last Name'
+								className={
+									errors.last_name &&
+									touched.last_name &&
+									'error_field'
+								}
+								onBlur={handleBlur}
+								value={values.last_name}
+								onChange={handleChange}
+							/>
+							<div className='errors'>
+								{errors.last_name && touched.last_name && (
+									<Text type='danger'>
+										{errors.last_name}
+									</Text>
+								)}
+							</div>
+						</Form.Item>
+
+						<Form.Item>
+							<Button
+								onClick={() => handleSubmit()}
+								type='primary'
+								disabled={isDisabled}>
+								Register
+							</Button>
+						</Form.Item>
+					</Form>
+				</div>
+				{/* LOL */}
+
+				<div className='container-register'>
+					<Text type='secondary'>Already have an account ?</Text>
+					<Button
+						type='link'
+						disabled={isDisabled}
+						onClick={() => history.push('/login')}>
+						Login
+					</Button>
+				</div>
 			</div>
 		</>
 	)

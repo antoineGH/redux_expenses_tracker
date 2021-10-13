@@ -8,9 +8,9 @@ import { Form, Input, Button, Typography } from 'antd'
 import './LoginForm.css'
 
 export default function LoginForm() {
-	const { Text } = Typography
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
+	const { Text } = Typography
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
 	const validationSchema = Yup.object({
@@ -75,9 +75,11 @@ export default function LoginForm() {
 							value={values.email}
 							onChange={handleChange}
 						/>
-						{errors.email && touched.email && (
-							<div className='error_text'>{errors.email}</div>
-						)}
+						<div className='errors'>
+							{errors.email && touched.email && (
+								<Text type='danger'>{errors.email}</Text>
+							)}
+						</div>
 					</Form.Item>
 					<Form.Item label='Password'>
 						<Input
@@ -94,16 +96,18 @@ export default function LoginForm() {
 							value={values.password}
 							onChange={handleChange}
 						/>
-						{errors.password && touched.password && (
-							<div className='error_text'>{errors.password}</div>
-						)}
+						<div className='errors'>
+							{errors.password && touched.password && (
+								<Text type='danger'>{errors.password}</Text>
+							)}
+						</div>
 					</Form.Item>
 					<Form.Item>
 						<Button
 							onClick={() => handleSubmit()}
 							type='primary'
 							disabled={isDisabled}>
-							Submit
+							Login
 						</Button>
 					</Form.Item>
 				</Form>
