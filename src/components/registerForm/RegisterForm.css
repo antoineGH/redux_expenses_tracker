@@ -30,7 +30,8 @@ h1 {
 	margin-bottom: 0rem;
 }
 
-.ant-layout-content div {
+.ant-btn[disabled] > * {
+	pointer-events: none;
 	background: rgba(0, 0, 255, 0);
 	padding-left: 0.4rem;
 }
