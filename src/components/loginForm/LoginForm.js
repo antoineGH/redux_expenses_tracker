@@ -4,10 +4,15 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import requestLogin from '../../utils/requestLogin'
 import { login } from '../../auth/authHook'
+import { Spin, Form, Input, Button, Typography } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import './LoginForm.css'
 
 export default function LoginForm() {
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
+	const { Text } = Typography
+	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
 	const validationSchema = Yup.object({
@@ -46,6 +51,7 @@ export default function LoginForm() {
 			.then((response) => {
 				login(response)
 				setIsDisabled(false)
+				history.push('/')
 			})
 			.catch((error) => {
 				console.log(error)
@@ -56,43 +62,71 @@ export default function LoginForm() {
 
 	return (
 		<>
-			<div>
-				<h1>Login</h1>
-				<form onSubmit={handleSubmit}>
-					<input
-						id='email'
-						name='email'
-						type='text'
-						placeholder='Email'
-						onBlur={handleBlur}
-						value={values.email}
-						onChange={handleChange}
-						disabled={isDisabled}
-					/>
-					{errors.email && touched.email && (
-						<div className='error_field'>{errors.email}</div>
-					)}
-					<input
-						id='password'
-						name='password'
-						type='password'
-						placeholder='Password'
-						onBlur={handleBlur}
-						value={values.password}
-						onChange={handleChange}
-					/>
-					{errors.password && touched.password && (
-						<div className='error_field'>{errors.password}</div>
-					)}
-					<button type='submit' disabled={isDisabled}>
-						Login
-					</button>
-				</form>
+			<h1>Login</h1>
+			<div className='container-form'>
+				<Form onSubmit={handleSubmit} layout='vertical'>
+					<Form.Item label='Email'>
+						<Input
+							id='email'
+							name='email'
+							type='text'
+							placeholder='Email'
+							className={
+								errors.email && touched.email && 'error_field'
+							}
+							onBlur={handleBlur}
+							value={values.email}
+							onChange={handleChange}
+						/>
+						<div className='errors'>
+							{errors.email && touched.email && (
+								<Text type='danger'>{errors.email}</Text>
+							)}
+						</div>
+					</Form.Item>
+					<Form.Item label='Password'>
+						<Input
+							id='password'
+							name='password'
+							type='password'
+							placeholder='Password'
+							className={
+								errors.password &&
+								touched.password &&
+								'error_field'
+							}
+							onBlur={handleBlur}
+							value={values.password}
+							onChange={handleChange}
+						/>
+						<div className='errors'>
+							{errors.password && touched.password && (
+								<Text type='danger'>{errors.password}</Text>
+							)}
+						</div>
+					</Form.Item>
+					<Form.Item>
+						<Button
+							onClick={() => handleSubmit()}
+							type='primary'
+							disabled={isDisabled}>
+							Login{' '}
+							{isDisabled && (
+								<Spin size='small' indicator={antIcon} />
+							)}
+						</Button>
+					</Form.Item>
+				</Form>
 			</div>
-			<div>
-				<button onClick={() => history.push('/register')}>
+
+			<div className='container-register'>
+				<Text type='secondary'>Don't have an account yet ?</Text>
+				<Button
+					type='link'
+					disabled={isDisabled}
+					onClick={() => history.push('/register')}>
 					Register
-				</button>
+				</Button>
 			</div>
 		</>
 	)
