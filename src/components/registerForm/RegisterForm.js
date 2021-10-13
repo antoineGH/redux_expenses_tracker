@@ -3,6 +3,7 @@ import { useHistory } from 'react-router'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import createUser from '../../utils/createUser'
+import { openNotificationWithIcon } from '../../utils/notification'
 import { Form, Input, Button, Typography } from 'antd'
 import './RegisterForm.css'
 
@@ -67,12 +68,22 @@ export default function RegisterForm() {
 		const last_name = values.last_name.toLowerCase()
 		createUser(email, password, first_name, last_name)
 			.then((response) => {
-				console.log(response)
-				history.push('/login')
+				openNotificationWithIcon(
+					'success',
+					'Registered successfully',
+					`${response.user.first_name} ${response.user.last_name}, Your account has been created. Please use ${response.user.email} to log in.`
+				)
+				setTimeout(() => {
+					history.push('/login')
+				}, 3500)
 				setIsDisabled(false)
 			})
 			.catch((error) => {
-				console.log(error)
+				openNotificationWithIcon(
+					'error',
+					'Error',
+					'Error during registration, try again.'
+				)
 				setIsDisabled(false)
 			})
 	}

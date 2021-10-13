@@ -20,12 +20,7 @@ export default async function createUser(
 	if (response.ok) {
 		responseJson = await response.json()
 	} else {
-		if (response.status === 400) {
-			errorJson = await response.json()
-		}
-		if (response.status === 401) {
-			errorJson = await response.json()
-		}
+		errorJson = await response.json()
 	}
 	return new Promise((resolve, reject) => {
 		responseJson ? resolve(responseJson) : reject(errorJson)

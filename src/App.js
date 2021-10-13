@@ -8,9 +8,9 @@ import Navbar from './components/navbar/Navbar'
 import SiderTodo from './components/siderTodo/SiderTodo'
 import FooterTodo from './components/footerTodo/FooterTodo'
 import { Layout } from 'antd'
-const { Content } = Layout
 
 function App() {
+	const { Content } = Layout
 	const [logged] = useAuth()
 	let payload = ''
 	if (logged) {
