@@ -1,9 +1,14 @@
 import './App.css'
 import { BrowserRouter, Switch } from 'react-router-dom'
 import { useAuth } from './auth/authHook'
-import UnAuthApp from './components/unAuthApp/UnAuthApp'
-import AuthApp from './components/authApp/AuthApp'
+import UnAuthApp from './layouts/UnAuthApp'
+import AuthApp from './layouts/AuthApp'
 import getPayload from './utils/getPayload'
+import Navbar from './components/navbar/Navbar'
+import SiderTodo from './components/siderTodo/SiderTodo'
+import FooterTodo from './components/footerTodo/FooterTodo'
+import { Layout } from 'antd'
+const { Content } = Layout
 
 function App() {
 	const [logged] = useAuth()
@@ -12,14 +17,24 @@ function App() {
 		payload = getPayload()
 	}
 	console.log(payload)
+	// Store Payload in Redux Store
 
 	return (
 		<div className='App'>
 			<BrowserRouter>
-				<Switch>
-					{!logged && <UnAuthApp />}
-					{logged && <AuthApp />}
-				</Switch>
+				<Layout>
+					<SiderTodo />
+					<Layout>
+						<Navbar />
+						<Switch>
+							<Content>
+								{!logged && <UnAuthApp />}
+								{logged && <AuthApp />}
+							</Content>
+							<FooterTodo />
+						</Switch>
+					</Layout>
+				</Layout>
 			</BrowserRouter>
 		</div>
 	)

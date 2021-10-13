@@ -1,12 +1,16 @@
 import React from 'react'
 import { logout } from '../../auth/authHook'
+import { Layout } from 'antd'
 
-export default function Navbar() {
+export default function Navbar(props) {
+	const { logged } = props
+	const { Header } = Layout
 	return (
 		<>
-			<div>
+			<Header>Header</Header>
+			{/* <div>
 				<button onClick={logout}>Logout</button>
-			</div>
+			</div> */}
 		</>
 	)
 }
