@@ -1,0 +1,24 @@
+.site-card-border-less-wrapper {
+	padding: 30px;
+	background: #ececec;
+}
+
+.profile-picture-card div .ant-avatar {
+	display: flex;
+	justify-content: center;
+	margin: auto;
+	margin-top: 1.5rem;
+}
+
+.profile-picture-card div span span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+}
+
+.input-div {
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-start;
+}
