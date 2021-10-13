@@ -49,6 +49,7 @@ export default function LoginForm() {
 			.then((response) => {
 				login(response)
 				setIsDisabled(false)
+				history.push('/')
 			})
 			.catch((error) => {
 				console.log(error)

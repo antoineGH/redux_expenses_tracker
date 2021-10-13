@@ -25,7 +25,7 @@ function App() {
 				<Layout>
 					<SiderTodo />
 					<Layout>
-						<Navbar />
+						<Navbar payload={payload} logged={logged} />
 						<Content>
 							<div>
 								<Switch>
