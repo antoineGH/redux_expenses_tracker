@@ -28,8 +28,10 @@ function App() {
 						<Navbar />
 						<Switch>
 							<Content>
-								{!logged && <UnAuthApp />}
-								{logged && <AuthApp />}
+								<div>
+									{!logged && <UnAuthApp />}
+									{logged && <AuthApp />}
+								</div>
 							</Content>
 							<FooterTodo />
 						</Switch>

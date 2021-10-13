@@ -9,6 +9,16 @@
 	pointer-events: none;
 }
 
+.ant-layout-content {
+	margin: 24px 16px 0;
+}
+
+.ant-layout-content div {
+	padding: 24;
+	background: white;
+	min-height: 360;
+}
+
 @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
 		animation: App-logo-spin infinite 20s linear;

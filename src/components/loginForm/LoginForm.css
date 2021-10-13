@@ -1,0 +1,23 @@
+h1 {
+	padding: 1rem;
+}
+
+.container-form {
+	max-width: 400px;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.container-register {
+	padding: 1rem;
+}
+
+.error_field {
+	border: 1px solid red;
+}
+
+.error_text {
+	color: red;
+}
