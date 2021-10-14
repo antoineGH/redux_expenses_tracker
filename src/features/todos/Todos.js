@@ -44,8 +44,8 @@ export default function Todos() {
 		dispatch(deleteTodo(todo_id))
 	}
 
-	const handleToggleTodo = (todo_id) => {
-		dispatch(toggleCheck(todo_id))
+	const handleToggleTodo = (todo_id, completed) => {
+		dispatch(toggleCheck({ todo_id, completed }))
 	}
 
 	const handleTryAgain = () => {

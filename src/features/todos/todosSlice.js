@@ -57,7 +57,6 @@ export const addTodo = createAsyncThunk('todos/addTodo', async (args) => {
 export const deleteTodo = createAsyncThunk(
 	'todos/deleteTodo',
 	async (todo_id) => {
-		console.log(todo_id)
 		const data = await authFetch(
 			`https://flask-todoapp-api.herokuapp.com/api/todo/${todo_id}`,
 			{
@@ -83,18 +82,30 @@ export const deleteTodo = createAsyncThunk(
 	}
 )
 
+export const toggleCheck = createAsyncThunk(
+	'todos/toggleCheck',
+	async (args) => {
+		const { todo_id, completed } = args
+		const todo = { completed }
+		const data = await authFetch(
+			`https://flask-todoapp-api.herokuapp.com/api/todo/${todo_id}`,
+			{
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(todo),
+			}
+		)
+		const json = await data.json()
+		return json
+	}
+)
+
 export const todoSlice = createSlice({
 	name: 'todos',
 	initialState: initialValue,
-	reducers: {
-		toggleCheck: (state, action) => {
-			const indexObject = state.value.findIndex(
-				(todo) => todo.todo_id === action.payload
-			)
-			state.value[indexObject].completed =
-				!state.value[indexObject].completed
-		},
-	},
+	reducers: {},
 	extraReducers: {
 		[loadTodos.pending]: (state) => {
 			state.isLoading = true
@@ -122,6 +133,23 @@ export const todoSlice = createSlice({
 			state.isLoadingAddTodo = false
 			state.hasErrorAddTodo = true
 		},
+		[toggleCheck.pending]: (state) => {
+			state.isLoadingAddTodo = true
+			state.hasErrorAddTodo = false
+		},
+		[toggleCheck.fulfilled]: (state, action) => {
+			const indexObject = state.value.findIndex(
+				(todo) => todo.todo_id === action.payload.todo.todo_id
+			)
+			state.value[indexObject].completed =
+				!state.value[indexObject].completed
+			state.isLoadingAddTodo = false
+			state.hasErrorAddTodo = false
+		},
+		[toggleCheck.rejected]: (state) => {
+			state.isLoadingAddTodo = false
+			state.hasErrorAddTodo = true
+		},
 		[deleteTodo.pending]: (state) => {
 			state.isLoadingAddTodo = true
 			state.hasErrorAddTodo = false
@@ -138,8 +166,6 @@ export const todoSlice = createSlice({
 		},
 	},
 })
-
-export const { toggleCheck } = todoSlice.actions
 
 // Selectors
 ////////////////////////////////

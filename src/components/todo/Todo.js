@@ -10,7 +10,7 @@ export default function Todo(props) {
 			<input
 				type='checkbox'
 				checked={todo.completed}
-				onChange={() => handleToggleTodo(todo.todo_id)}
+				onChange={() => handleToggleTodo(todo.todo_id, !todo.completed)}
 			/>
 			<button
 				className='btn-delete'
