@@ -23,10 +23,8 @@ export const loadTodos = createAsyncThunk('todos/getAllTodos', async () => {
 })
 
 export const addTodo = createAsyncThunk('todos/addTodo', async (args) => {
-	console.log(args)
 	const { todo_description, isCompleted } = args
 	const todo = { todo_description, completed: isCompleted }
-	console.log(todo)
 	const data = await authFetch(
 		'https://flask-todoapp-api.herokuapp.com/api/todos',
 		{
@@ -56,15 +54,39 @@ export const addTodo = createAsyncThunk('todos/addTodo', async (args) => {
 	return json
 })
 
+export const deleteTodo = createAsyncThunk(
+	'todos/deleteTodo',
+	async (todo_id) => {
+		console.log(todo_id)
+		const data = await authFetch(
+			`https://flask-todoapp-api.herokuapp.com/api/todo/${todo_id}`,
+			{
+				method: 'DELETE',
+			}
+		)
+		const json = await data.json()
+		if (json) {
+			openNotificationWithIcon(
+				'success',
+				'Todo Deleted',
+				'Todo has been deleted'
+			)
+		} else {
+			openNotificationWithIcon(
+				'error',
+				'Error',
+				'Todo has not been deleted'
+			)
+		}
+		console.log(json)
+		return { json, todo_id }
+	}
+)
+
 export const todoSlice = createSlice({
 	name: 'todos',
 	initialState: initialValue,
 	reducers: {
-		deleteTodo: (state, action) => {
-			state.value = state.value.filter(
-				(todo) => todo.todo_id !== action.payload
-			)
-		},
 		toggleCheck: (state, action) => {
 			const indexObject = state.value.findIndex(
 				(todo) => todo.todo_id === action.payload
@@ -100,10 +122,24 @@ export const todoSlice = createSlice({
 			state.isLoadingAddTodo = false
 			state.hasErrorAddTodo = true
 		},
+		[deleteTodo.pending]: (state) => {
+			state.isLoadingAddTodo = true
+			state.hasErrorAddTodo = false
+		},
+		[deleteTodo.fulfilled]: (state, action) => {
+			const { todo_id } = action.payload
+			state.value = state.value.filter((todo) => todo.todo_id !== todo_id)
+			state.isLoadingAddTodo = false
+			state.hasErrorAddTodo = false
+		},
+		[deleteTodo.rejected]: (state) => {
+			state.isLoadingAddTodo = false
+			state.hasErrorAddTodo = true
+		},
 	},
 })
 
-export const { deleteTodo, toggleCheck } = todoSlice.actions
+export const { toggleCheck } = todoSlice.actions
 
 // Selectors
 ////////////////////////////////
