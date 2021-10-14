@@ -26,6 +26,7 @@ export default function TodoForm(props) {
 			onSubmit(values) {
 				const { todo_description } = values
 				handleAddTodo(todo_description, isCompleted)
+				values.todo_description = ''
 			},
 		})
 
