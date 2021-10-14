@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
 import { Avatar } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
-import { Card, Typography } from 'antd'
+import { Spin, Card, Typography, Button } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import './UserForm.css'
 
 export default function UserForm() {
 	const [firstName, setFirstName] = useState('Antoine')
 	const [lastName, setLastName] = useState('Ratat')
 	const [email, setEmail] = useState('antoine.ratat@gmail.com')
+	const [isDisabled, setIsDisabled] = useState(false)
 	const { Paragraph, Title, Text } = Typography
+	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 	return (
 		<>
 			<Card
-				hoverable
 				className='profile-picture-card'
-				style={{ width: 300 }}
+				style={{ width: 350 }}
 				cover={
 					<Avatar shape='square' size={86} icon={<UserOutlined />} />
 				}>
 				<hr />
-				<Title level={5} style={{ marginBottom: '1rem' }}>
+				<Title level={5} className='detail-title'>
 					Details
 				</Title>
 				<div className='input-div'>
@@ -50,10 +52,21 @@ export default function UserForm() {
 						editable={{
 							onChange: setEmail,
 							maxLength: 50,
-							autoSize: { maxRows: 1, minRows: 1 },
+							autoSize: { maxRows: 2, minRows: 1 },
 						}}>
 						{email}
 					</Paragraph>
+				</div>
+				<div>
+					<Button
+						type='primary'
+						style={{ marginTop: '1rem' }}
+						disabled={isDisabled}>
+						Update{' '}
+						{isDisabled && (
+							<Spin size='small' indicator={antIcon} />
+						)}
+					</Button>
 				</div>
 			</Card>
 		</>

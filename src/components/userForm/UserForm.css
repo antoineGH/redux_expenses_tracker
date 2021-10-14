@@ -3,6 +3,13 @@
 	background: #ececec;
 }
 
+.profile-picture-card {
+	margin: auto;
+	border-color: transparent;
+	box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%),
+		0 5px 12px 4px rgb(0 0 0 / 9%);
+}
+
 .profile-picture-card div .ant-avatar {
 	display: flex;
 	justify-content: center;
@@ -20,5 +27,15 @@
 .input-div {
 	display: flex;
 	gap: 1rem;
+	justify-content: flex-start;
+}
+
+hr {
+	border-color: floralwhite;
+}
+
+.detail-title {
+	margin: 1rem auto 1rem auto !important;
+	display: flex;
 	justify-content: flex-start;
 }
