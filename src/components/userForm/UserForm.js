@@ -1,50 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import {
-	loadUser,
-	selectUser,
-	selectUserIsLoading,
-	selectUserHasError,
-} from '../../features/user/userSlice'
-import { useSelector, useDispatch } from 'react-redux'
-import { Spin, Card, Typography, Button, Avatar } from 'antd'
+import React, { useState } from 'react'
+import { Spin, Card, Typography, Button, Avatar, Skeleton } from 'antd'
 import { LoadingOutlined, UserOutlined } from '@ant-design/icons'
-import { Skeleton, Switch } from 'antd'
-import {
-	EditOutlined,
-	EllipsisOutlined,
-	SettingOutlined,
-} from '@ant-design/icons'
 import './UserForm.css'
 
-export default function UserForm() {
-	const [firstName, setFirstName] = useState('Antoine')
-	const [lastName, setLastName] = useState('Ratat')
-	const [email, setEmail] = useState('antoine.ratat@gmail.com')
+export default function UserForm(props) {
+	const { isLoading, user } = props
 
-	const dispatch = useDispatch()
-	const isLoading = useSelector(selectUserIsLoading)
-	// const isLoading = true
-	const hasError = useSelector(selectUserHasError)
+	const [firstName, setFirstName] = useState(user['first_name'])
+	const [lastName, setLastName] = useState(user['last_name'])
+	const [email, setEmail] = useState(user['email'])
 
 	const [isDisabled, setIsDisabled] = useState(false)
 	const { Paragraph, Title, Text } = Typography
 	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
-	const { Meta } = Card
-
-	useEffect(() => {
-		dispatch(loadUser())
-	}, [dispatch])
-
-	console.log(useSelector(selectUser))
 
 	return (
 		<>
-			{hasError && (
-				<>
-					<p>Error Fetching the API.</p>
-				</>
-			)}
-
 			<Card
 				className='profile-picture-card'
 				style={{ width: 350 }}
