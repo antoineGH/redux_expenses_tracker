@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Spin, Card, Typography, Button, Avatar, Input, Form } from 'antd'
+import {
+	Spin,
+	Card,
+	Typography,
+	Button,
+	Avatar,
+	Input,
+	Form,
+	Modal,
+} from 'antd'
 import { LoadingOutlined, UserOutlined } from '@ant-design/icons'
 import './UserForm.css'
 
 export default function UserForm(props) {
 	const { user, handleUpdateAccount, handleDeleteAccount, isDisabled } = props
+
+	const [isModalVisible, setIsModalVisible] = useState(false)
 
 	const { Title, Text } = Typography
 	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
@@ -49,6 +60,15 @@ export default function UserForm(props) {
 				handleUpdateAccount(first_name, last_name, password)
 			},
 		})
+
+	const handleOk = () => {
+		setIsModalVisible(false)
+		handleDeleteAccount()
+	}
+
+	const handleCancel = () => {
+		setIsModalVisible(false)
+	}
 
 	return (
 		<>
@@ -179,12 +199,20 @@ export default function UserForm(props) {
 				</div>
 
 				<div className='delete-account'>
-					<Button type='link' onClick={handleDeleteAccount}>
+					<Button type='link' onClick={() => setIsModalVisible(true)}>
 						{' '}
 						<Text type='secondary'>Delete my account</Text>
 					</Button>
 				</div>
 			</Card>
+			<Modal
+				title='Delete Account'
+				visible={isModalVisible}
+				onOk={handleOk}
+				onCancel={handleCancel}
+				okText='Delete'>
+				Are you sure to delete account ?
+			</Modal>
 		</>
 	)
 }

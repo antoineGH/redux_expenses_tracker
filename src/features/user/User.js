@@ -1,61 +1,59 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
 	loadUser,
 	selectUser,
 	deleteUser,
 	selectUserIsLoading,
 	selectUserHasError,
+	selectUpdateUserIsLoading,
+	selectUpdateUserHasError,
+	selectDeleteUserHasError,
+	updateUser,
 } from './userSlice'
-import { openNotificationWithIcon } from '../../utils/notification'
 import { useSelector, useDispatch } from 'react-redux'
 import UserForm from '../../components/userForm/UserForm'
 import { Card, Skeleton, Avatar } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
+import { openNotificationWithIcon } from '../../utils/notification'
 
 export default function User() {
 	const dispatch = useDispatch()
 	const isLoading = useSelector(selectUserIsLoading)
 	const hasError = useSelector(selectUserHasError)
 	const user = useSelector(selectUser)
-
-	const [isDisabled, setIsDisabled] = useState(false)
+	const isLoadingUpdateUser = useSelector(selectUpdateUserIsLoading)
+	const hasErrorUpdateUser = useSelector(selectUpdateUserHasError)
+	const hasErrorDeleteUser = useSelector(selectDeleteUserHasError)
 
 	useEffect(() => {
 		dispatch(loadUser())
 	}, [dispatch])
 
 	const handleUpdateAccount = (firstName, lastName, password) => {
-		console.log('Update Account')
+		if (
+			firstName === user.first_name &&
+			lastName === user.last_name &&
+			!password
+		) {
+			openNotificationWithIcon(
+				'info',
+				'No Changes',
+				'No modifications made on your account.'
+			)
+			return
+		}
 		firstName = firstName.toLowerCase()
 		lastName = lastName.toLowerCase()
-
-		// setIsDisabled(true)
-		// dispatch middleware async request
-		// update store
-		// update API
-		// success setIsDisabled(false)
-		// error setIsDisabled(false)
+		dispatch(updateUser({ firstName, lastName, password }))
 	}
 
 	const handleDeleteAccount = () => {
 		dispatch(deleteUser())
-
-		// setIsDisabled(true)
-
-		console.log('Delete Account')
-		// openNotificationWithIcon(
-		// 	'success',
-		// 	'Registered successfully',
-		// 	`${response.user.first_name} ${response.user.last_name}, Your account has been created. Please use ${response.user.email} to log in.`
-		// )
-		// setIsDisabled(false)
-		// openNotificationWithIcon('error', 'Error', error.message)
-		// setIsDisabled(false)
 	}
 
 	return (
 		<>
-			{hasError && (
+			{(hasError || hasErrorUpdateUser || hasErrorDeleteUser) && (
 				<>
 					<p>Error Fetching the API.</p>
 				</>
@@ -80,7 +78,7 @@ export default function User() {
 					user={user}
 					handleUpdateAccount={handleUpdateAccount}
 					handleDeleteAccount={handleDeleteAccount}
-					isDisabled={isDisabled}
+					isDisabled={isLoadingUpdateUser}
 				/>
 			)}
 		</>
