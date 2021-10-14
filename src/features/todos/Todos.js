@@ -24,8 +24,6 @@ export default function Todos() {
 	const dispatch = useDispatch()
 	const { Title } = Typography
 
-	console.log('isLoadingAddTodo =>' + isLoadingAddTodo)
-
 	useEffect(() => {
 		dispatch(loadTodos())
 	}, [dispatch])
