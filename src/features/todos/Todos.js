@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
 	selectTodos,
@@ -20,6 +20,8 @@ export default function Todos() {
 	const hasError = useSelector(selectHasError)
 	const dispatch = useDispatch()
 	const { Title } = Typography
+
+	const [isDisabled, setIsDisabled] = useState(false)
 
 	useEffect(() => {
 		dispatch(loadTodos())
@@ -45,7 +47,7 @@ export default function Todos() {
 	return (
 		<>
 			<Title level={2}>Todos</Title>
-			<TodoForm handleAddTodo={handleAddTodo} />
+			<TodoForm isDisabled={isDisabled} />
 			{isLoading && (
 				<div className='div-barloader'>
 					<Spin />

@@ -1,27 +1,83 @@
 import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { Spin, Form, Input, Button, Typography, Switch } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import './TodoForm.css'
 
 export default function TodoForm(props) {
-	const { handleAddTodo } = props
-	const [addTodoValue, setAddTodoValue] = useState('')
+	const { isDisabled } = props
+	const { Text } = Typography
+	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
-	const handleClick = () => {
-		if (!addTodoValue) return
-		handleAddTodo(addTodoValue)
-		setAddTodoValue('')
-	}
+	const validationSchema = Yup.object({
+		todo_description: Yup.string().min(3, 'Too Short').max(200, 'Too Long'),
+		completed: Yup.boolean(),
+	})
+
+	const [isCompleted, setIsCompleted] = useState(false)
+
+	const { handleSubmit, handleChange, handleBlur, values, touched, errors } =
+		useFormik({
+			initialValues: {
+				todo_description: '',
+			},
+			validationSchema,
+			onSubmit(values) {
+				const { todo_description } = values
+				console.log(todo_description)
+				console.log(isCompleted)
+			},
+		})
 
 	return (
-		<div>
-			<input
-				className='input-todo'
-				aria-label='New Todo'
-				placeholder='New Todo'
-				value={addTodoValue}
-				onChange={(e) => setAddTodoValue(e.target.value)}
-			/>
-			<button className='btn-addtodo' onClick={handleClick}>
-				Add Todo
-			</button>
-		</div>
+		<>
+			<div className='container-todoform'>
+				<Form onSubmit={handleSubmit} layout='inline'>
+					<Form.Item label='Todo Description'>
+						<Input
+							id='todo_description'
+							name='todo_description'
+							type='text'
+							placeholder='Todo Description'
+							className={
+								errors.todo_description &&
+								touched.todo_description &&
+								'error_field'
+							}
+							onBlur={handleBlur}
+							value={values.todo_description}
+							onChange={handleChange}
+						/>
+					</Form.Item>
+					<Form.Item>
+						<Switch
+							id='completed'
+							name='completed'
+							type='text'
+							onChange={() => setIsCompleted(!isCompleted)}
+							checked={values.completed}
+						/>
+					</Form.Item>
+					<Form.Item>
+						<Button
+							type='primary'
+							onClick={() => handleSubmit()}
+							style={{ marginTop: '1rem' }}
+							disabled={isDisabled}>
+							Add{' '}
+							{isDisabled && (
+								<Spin size='small' indicator={antIcon} />
+							)}
+						</Button>
+					</Form.Item>
+				</Form>
+			</div>
+			<div className='errors'>
+				{errors.todo_description && touched.todo_description && (
+					<Text type='danger'>{errors.todo_description}</Text>
+				)}
+			</div>
+		</>
 	)
 }
