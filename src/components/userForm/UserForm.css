@@ -39,3 +39,7 @@ hr {
 	display: flex;
 	justify-content: flex-start;
 }
+
+.delete-account {
+	margin-top: 1rem;
+}

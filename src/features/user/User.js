@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	loadUser,
 	selectUser,
@@ -7,8 +7,8 @@ import {
 } from './userSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import UserForm from '../../components/userForm/UserForm'
-import { Spin, Card, Typography, Button, Avatar, Skeleton } from 'antd'
-import { LoadingOutlined, UserOutlined } from '@ant-design/icons'
+import { Card, Skeleton, Avatar } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
 
 export default function User() {
 	const dispatch = useDispatch()
@@ -16,11 +16,28 @@ export default function User() {
 	const hasError = useSelector(selectUserHasError)
 	const user = useSelector(selectUser)
 
-	const { Paragraph, Title, Text } = Typography
+	const [isDisabled, setIsDisabled] = useState(false)
 
 	useEffect(() => {
 		dispatch(loadUser())
 	}, [dispatch])
+
+	const handleUpdateAccount = (firstName, lastName, email) => {
+		console.log('Update Account')
+		console.log(firstName)
+		console.log(lastName)
+		console.log(email)
+		// setIsDisabled(true)
+		// dispatch middleware async request
+		// update store
+		// update API
+		// success setIsDisabled(false)
+		// error setIsDisabled(false)
+	}
+
+	const handleDeleteAccount = () => {
+		console.log('Delete Account')
+	}
 
 	return (
 		<>
@@ -45,7 +62,12 @@ export default function User() {
 				</Card>
 			)}
 			{!isLoading && user !== undefined && (
-				<UserForm isLoading={isLoading} user={user} />
+				<UserForm
+					user={user}
+					handleUpdateAccount={handleUpdateAccount}
+					handleDeleteAccount={handleDeleteAccount}
+					isDisabled={isDisabled}
+				/>
 			)}
 		</>
 	)
