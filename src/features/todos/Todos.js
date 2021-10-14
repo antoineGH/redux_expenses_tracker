@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
 	selectTodos,
@@ -12,6 +12,7 @@ import {
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
 import TodoList from '../../components/todoList/TodoList'
+import { openNotificationWithIcon } from '../../utils/notification'
 import { Spin, Typography } from 'antd'
 
 export default function Todos() {
@@ -21,15 +22,20 @@ export default function Todos() {
 	const dispatch = useDispatch()
 	const { Title } = Typography
 
-	const [isDisabled, setIsDisabled] = useState(false)
-
 	useEffect(() => {
 		dispatch(loadTodos())
 	}, [dispatch])
 
-	const handleAddTodo = (todo_id) => {
-		if (todos.some((todo) => todo.todo_id === todo_id)) return
-		dispatch(addTodo(todo_id))
+	const handleAddTodo = (todo_description, isCompleted) => {
+		if (!todo_description) {
+			openNotificationWithIcon(
+				'info',
+				'No Changes',
+				'Todo was not saved.'
+			)
+			return
+		}
+		dispatch(addTodo({ todo_description, isCompleted }))
 	}
 
 	const handleDeleteTodo = (todo_id) => {
@@ -47,7 +53,7 @@ export default function Todos() {
 	return (
 		<>
 			<Title level={2}>Todos</Title>
-			<TodoForm isDisabled={isDisabled} />
+			<TodoForm handleAddTodo={handleAddTodo} />
 			{isLoading && (
 				<div className='div-barloader'>
 					<Spin />

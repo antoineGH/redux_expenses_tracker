@@ -6,7 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import './TodoForm.css'
 
 export default function TodoForm(props) {
-	const { isDisabled } = props
+	const { isDisabled, handleAddTodo } = props
 	const { Text } = Typography
 	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
@@ -25,8 +25,7 @@ export default function TodoForm(props) {
 			validationSchema,
 			onSubmit(values) {
 				const { todo_description } = values
-				console.log(todo_description)
-				console.log(isCompleted)
+				handleAddTodo(todo_description, isCompleted)
 			},
 		})
 
@@ -63,7 +62,6 @@ export default function TodoForm(props) {
 						<Button
 							type='primary'
 							onClick={() => handleSubmit()}
-							style={{ marginTop: '1rem' }}
 							disabled={isDisabled}>
 							Add{' '}
 							{isDisabled && (
