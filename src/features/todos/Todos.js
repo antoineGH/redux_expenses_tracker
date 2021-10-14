@@ -8,6 +8,7 @@ import {
 	deleteTodo,
 	toggleCheck,
 	loadTodos,
+	selectIsLoadingAddTodo,
 } from './todosSlice'
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
@@ -19,8 +20,11 @@ export default function Todos() {
 	const todos = useSelector(selectTodos)
 	const isLoading = useSelector(selectIsLoading)
 	const hasError = useSelector(selectHasError)
+	const isLoadingAddTodo = useSelector(selectIsLoadingAddTodo)
 	const dispatch = useDispatch()
 	const { Title } = Typography
+
+	console.log('isLoadingAddTodo =>' + isLoadingAddTodo)
 
 	useEffect(() => {
 		dispatch(loadTodos())
@@ -53,7 +57,10 @@ export default function Todos() {
 	return (
 		<>
 			<Title level={2}>Todos</Title>
-			<TodoForm handleAddTodo={handleAddTodo} />
+			<TodoForm
+				handleAddTodo={handleAddTodo}
+				isDisabled={isLoadingAddTodo}
+			/>
 			{isLoading && (
 				<div className='div-barloader'>
 					<Spin />

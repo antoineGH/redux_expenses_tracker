@@ -111,4 +111,6 @@ export const { deleteTodo, toggleCheck } = todoSlice.actions
 export const selectTodos = (state) => state.todos.value
 export const selectIsLoading = (state) => state.todos.isLoading
 export const selectHasError = (state) => state.todos.hasError
+export const selectIsLoadingAddTodo = (state) => state.todos.isLoadingAddTodo
+export const selecthasErrorAddTodo = (state) => state.todos.hasErrorAddTodo
 export default todoSlice.reducer
