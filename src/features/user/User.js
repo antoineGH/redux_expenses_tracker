@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import {
 	loadUser,
 	selectUser,
+	deleteUser,
 	selectUserIsLoading,
 	selectUserHasError,
 } from './userSlice'
+import { openNotificationWithIcon } from '../../utils/notification'
 import { useSelector, useDispatch } from 'react-redux'
 import UserForm from '../../components/userForm/UserForm'
 import { Card, Skeleton, Avatar } from 'antd'
@@ -36,9 +38,19 @@ export default function User() {
 	}
 
 	const handleDeleteAccount = () => {
-		setIsDisabled(true)
-		setIsDisabled(false)
+		dispatch(deleteUser())
+
+		// setIsDisabled(true)
+
 		console.log('Delete Account')
+		// openNotificationWithIcon(
+		// 	'success',
+		// 	'Registered successfully',
+		// 	`${response.user.first_name} ${response.user.last_name}, Your account has been created. Please use ${response.user.email} to log in.`
+		// )
+		// setIsDisabled(false)
+		// openNotificationWithIcon('error', 'Error', error.message)
+		// setIsDisabled(false)
 	}
 
 	return (
