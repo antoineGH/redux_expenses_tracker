@@ -12,14 +12,14 @@ import {
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
 import TodoList from '../../components/todoList/TodoList'
-
-import { Spin } from 'antd'
+import { Spin, Typography } from 'antd'
 
 export default function Todos() {
 	const todos = useSelector(selectTodos)
 	const isLoading = useSelector(selectIsLoading)
 	const hasError = useSelector(selectHasError)
 	const dispatch = useDispatch()
+	const { Title } = Typography
 
 	useEffect(() => {
 		dispatch(loadTodos())
@@ -44,6 +44,7 @@ export default function Todos() {
 
 	return (
 		<>
+			<Title level={2}>Todos</Title>
 			<TodoForm handleAddTodo={handleAddTodo} />
 			{isLoading && (
 				<div className='div-barloader'>

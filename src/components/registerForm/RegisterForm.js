@@ -11,7 +11,7 @@ import './RegisterForm.css'
 export default function RegisterForm() {
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
-	const { Text } = Typography
+	const { Text, Title } = Typography
 	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
@@ -81,11 +81,8 @@ export default function RegisterForm() {
 				setIsDisabled(false)
 			})
 			.catch((error) => {
-				openNotificationWithIcon(
-					'error',
-					'Error',
-					'Error during registration, try again.'
-				)
+				console.log(error)
+				openNotificationWithIcon('error', 'Error', error.message)
 				setIsDisabled(false)
 			})
 	}
@@ -93,7 +90,9 @@ export default function RegisterForm() {
 	return (
 		<>
 			<div>
-				<h1>Register</h1>
+				<Title level={3} style={{ marginBottom: '1rem' }}>
+					Register
+				</Title>
 				<div className='container-form'>
 					<Form onSubmit={handleSubmit} layout='vertical'>
 						<Form.Item label='Email'>

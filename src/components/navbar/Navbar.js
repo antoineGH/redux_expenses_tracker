@@ -28,6 +28,7 @@ export default function Navbar(props) {
 				Home
 			</Menu.Item>
 			<Menu.Item
+				onClick={() => history.push('/user')}
 				className='submenu-navbar'
 				key='2'
 				icon={<UserOutlined />}>

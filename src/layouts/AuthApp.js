@@ -1,12 +1,16 @@
 import React from 'react'
-import Title from '../components/title/Title'
+import { Switch, Route, Redirect } from 'react-router'
 import Todos from '../features/todos/Todos'
+import User from '../features/user/User'
 
 export default function AuthApp() {
 	return (
 		<>
-			<Title />
-			<Todos />
+			<Switch>
+				<Route path='/todo' component={Todos} />
+				<Route path='/user' component={User} />
+				<Redirect from='*' to='/todo' />
+			</Switch>
 		</>
 	)
 }

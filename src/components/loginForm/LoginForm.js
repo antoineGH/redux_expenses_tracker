@@ -6,12 +6,13 @@ import requestLogin from '../../utils/requestLogin'
 import { login } from '../../auth/authHook'
 import { Spin, Form, Input, Button, Typography } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
+import { openNotificationWithIcon } from '../../utils/notification'
 import './LoginForm.css'
 
 export default function LoginForm() {
 	const [isDisabled, setIsDisabled] = useState(false)
 	const history = useHistory()
-	const { Text } = Typography
+	const { Text, Title } = Typography
 	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
 	const regexPassword = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,24}$/
@@ -55,14 +56,20 @@ export default function LoginForm() {
 			})
 			.catch((error) => {
 				console.log(error)
-				alert('Wrong UserName/Password')
+				openNotificationWithIcon(
+					'error',
+					'Error',
+					'Wrong Username Password.'
+				)
 				setIsDisabled(false)
 			})
 	}
 
 	return (
 		<>
-			<h1>Login</h1>
+			<Title level={3} style={{ marginBottom: '1rem' }}>
+				Login
+			</Title>
 			<div className='container-form'>
 				<Form onSubmit={handleSubmit} layout='vertical'>
 					<Form.Item label='Email'>

@@ -27,7 +27,7 @@ function App() {
 					<Layout>
 						<Navbar payload={payload} logged={logged} />
 						<Content>
-							<div>
+							<div className='div-content'>
 								<Switch>
 									{!logged && <UnAuthApp />}
 									{logged && <AuthApp />}
