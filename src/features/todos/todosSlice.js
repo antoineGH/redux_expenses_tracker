@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { authFetch } from '../../auth/authHook'
+import { openNotificationWithIcon } from '../../utils/notification'
+import toTitle from '../../utils/toTitle'
 
 // Slice Reducer
 ////////////////////////////////
@@ -8,6 +10,8 @@ const initialValue = {
 	value: [],
 	isLoading: false,
 	hasError: false,
+	isLoadingAddTodo: false,
+	hasErrorAddTodo: false,
 }
 
 export const loadTodos = createAsyncThunk('todos/getAllTodos', async () => {
@@ -18,17 +22,44 @@ export const loadTodos = createAsyncThunk('todos/getAllTodos', async () => {
 	return json
 })
 
+export const addTodo = createAsyncThunk('todos/addTodo', async (args) => {
+	console.log(args)
+	const { todo_description, isCompleted } = args
+	const todo = { todo_description, completed: isCompleted }
+	console.log(todo)
+	const data = await authFetch(
+		'https://flask-todoapp-api.herokuapp.com/api/todos',
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(todo),
+		}
+	)
+	const json = await data.json()
+	if (json.todo.hasOwnProperty('todo_id')) {
+		openNotificationWithIcon(
+			'success',
+			'Todo Added',
+			`Todo '${toTitle(
+				json.todo.todo_description
+			)}' has been added to your account.`
+		)
+	} else {
+		openNotificationWithIcon(
+			'error',
+			'Todo Not Added',
+			'Error Addind Todo to your account.'
+		)
+	}
+	return json
+})
+
 export const todoSlice = createSlice({
 	name: 'todos',
 	initialState: initialValue,
 	reducers: {
-		addTodo: (state, action) => {
-			state.value.push({
-				todo_id: 5, //To Change with MiddleWare to return newly create todoID in payload
-				todo_description: action.payload,
-				completed: false,
-			})
-		},
 		deleteTodo: (state, action) => {
 			state.value = state.value.filter(
 				(todo) => todo.todo_id !== action.payload
@@ -56,10 +87,23 @@ export const todoSlice = createSlice({
 			state.isLoading = false
 			state.hasError = true
 		},
+		[addTodo.pending]: (state) => {
+			state.isLoadingAddTodo = true
+			state.hasErrorAddTodo = false
+		},
+		[addTodo.fulfilled]: (state, action) => {
+			state.value.push(action.payload.todo)
+			state.isLoadingAddTodo = false
+			state.hasErrorAddTodo = false
+		},
+		[addTodo.rejected]: (state) => {
+			state.isLoadingAddTodo = false
+			state.hasErrorAddTodo = true
+		},
 	},
 })
 
-export const { addTodo, deleteTodo, toggleCheck } = todoSlice.actions
+export const { deleteTodo, toggleCheck } = todoSlice.actions
 
 // Selectors
 ////////////////////////////////
@@ -67,4 +111,6 @@ export const { addTodo, deleteTodo, toggleCheck } = todoSlice.actions
 export const selectTodos = (state) => state.todos.value
 export const selectIsLoading = (state) => state.todos.isLoading
 export const selectHasError = (state) => state.todos.hasError
+export const selectIsLoadingAddTodo = (state) => state.todos.isLoadingAddTodo
+export const selecthasErrorAddTodo = (state) => state.todos.hasErrorAddTodo
 export default todoSlice.reducer

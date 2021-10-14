@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
 	selectTodos,
@@ -8,28 +8,36 @@ import {
 	deleteTodo,
 	toggleCheck,
 	loadTodos,
+	selectIsLoadingAddTodo,
 } from './todosSlice'
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
 import TodoList from '../../components/todoList/TodoList'
+import { openNotificationWithIcon } from '../../utils/notification'
 import { Spin, Typography } from 'antd'
 
 export default function Todos() {
 	const todos = useSelector(selectTodos)
 	const isLoading = useSelector(selectIsLoading)
 	const hasError = useSelector(selectHasError)
+	const isLoadingAddTodo = useSelector(selectIsLoadingAddTodo)
 	const dispatch = useDispatch()
 	const { Title } = Typography
-
-	const [isDisabled, setIsDisabled] = useState(false)
 
 	useEffect(() => {
 		dispatch(loadTodos())
 	}, [dispatch])
 
-	const handleAddTodo = (todo_id) => {
-		if (todos.some((todo) => todo.todo_id === todo_id)) return
-		dispatch(addTodo(todo_id))
+	const handleAddTodo = (todo_description, isCompleted) => {
+		if (!todo_description) {
+			openNotificationWithIcon(
+				'info',
+				'No Changes',
+				'Todo was not saved.'
+			)
+			return
+		}
+		dispatch(addTodo({ todo_description, isCompleted }))
 	}
 
 	const handleDeleteTodo = (todo_id) => {
@@ -47,7 +55,10 @@ export default function Todos() {
 	return (
 		<>
 			<Title level={2}>Todos</Title>
-			<TodoForm isDisabled={isDisabled} />
+			<TodoForm
+				handleAddTodo={handleAddTodo}
+				isDisabled={isLoadingAddTodo}
+			/>
 			{isLoading && (
 				<div className='div-barloader'>
 					<Spin />
