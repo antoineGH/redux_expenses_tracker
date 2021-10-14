@@ -40,6 +40,14 @@ hr {
 	justify-content: flex-start;
 }
 
+.username-title {
+	text-transform: capitalize;
+}
+
+.username-email {
+	margin-bottom: 1rem;
+}
+
 .delete-account {
 	margin-top: 1rem;
 }

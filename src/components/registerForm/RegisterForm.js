@@ -81,11 +81,8 @@ export default function RegisterForm() {
 				setIsDisabled(false)
 			})
 			.catch((error) => {
-				openNotificationWithIcon(
-					'error',
-					'Error',
-					'Error during registration, try again.'
-				)
+				console.log(error)
+				openNotificationWithIcon('error', 'Error', error.message)
 				setIsDisabled(false)
 			})
 	}

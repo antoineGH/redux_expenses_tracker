@@ -22,11 +22,11 @@ export default function User() {
 		dispatch(loadUser())
 	}, [dispatch])
 
-	const handleUpdateAccount = (firstName, lastName, email) => {
+	const handleUpdateAccount = (firstName, lastName, password) => {
 		console.log('Update Account')
-		console.log(firstName)
-		console.log(lastName)
-		console.log(email)
+		firstName = firstName.toLowerCase()
+		lastName = lastName.toLowerCase()
+
 		// setIsDisabled(true)
 		// dispatch middleware async request
 		// update store
@@ -36,6 +36,8 @@ export default function User() {
 	}
 
 	const handleDeleteAccount = () => {
+		setIsDisabled(true)
+		setIsDisabled(false)
 		console.log('Delete Account')
 	}
 

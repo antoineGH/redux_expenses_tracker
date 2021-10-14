@@ -6,6 +6,7 @@ import requestLogin from '../../utils/requestLogin'
 import { login } from '../../auth/authHook'
 import { Spin, Form, Input, Button, Typography } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
+import { openNotificationWithIcon } from '../../utils/notification'
 import './LoginForm.css'
 
 export default function LoginForm() {
@@ -55,7 +56,11 @@ export default function LoginForm() {
 			})
 			.catch((error) => {
 				console.log(error)
-				alert('Wrong UserName/Password')
+				openNotificationWithIcon(
+					'error',
+					'Error',
+					'Wrong Username Password.'
+				)
 				setIsDisabled(false)
 			})
 	}
