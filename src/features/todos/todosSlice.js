@@ -21,6 +21,11 @@ export const loadTodos = createAsyncThunk('todos/getAllTodos', async () => {
 		`https://flask-todoapp-api.herokuapp.com/api/todos`
 	)
 	const json = await data.json()
+	if (json.hasOwnProperty('message')) {
+		if (json['message'] === 'Todos not found') {
+			return { todos: [] }
+		}
+	}
 	return json
 })
 
@@ -50,7 +55,7 @@ export const addTodo = createAsyncThunk('todos/addTodo', async (args) => {
 		openNotificationWithIcon(
 			'error',
 			'Todo Not Added',
-			'Error Addind Todo to your account.'
+			'Error Adding Todo to your account.'
 		)
 	}
 	return json
@@ -114,7 +119,11 @@ export const todoSlice = createSlice({
 			state.hasError = false
 		},
 		[loadTodos.fulfilled]: (state, action) => {
-			state.value = action.payload.todos
+			if (action.payload.todos.length <= 1) {
+				state.value = []
+			} else {
+				state.value = action.payload.todos
+			}
 			state.isLoading = false
 			state.hasError = false
 		},
