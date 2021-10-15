@@ -28,6 +28,7 @@ export default function User() {
 	useEffect(() => {
 		dispatch(loadUser())
 	}, [dispatch])
+	// TODO REMOVE USEEFFECT LOADUSER USER
 
 	const handleUpdateAccount = (firstName, lastName, password) => {
 		if (
