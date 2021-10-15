@@ -1,22 +1,31 @@
 import React from 'react'
 import Todo from '../todo/Todo'
+import { Row, Col } from 'antd'
 import './TodoList.css'
 
 export default function TodoList(props) {
-	const { todos, handleDeleteTodo, handleToggleTodo, isDisabled } = props
+	const {
+		todos,
+		handleDeleteTodo,
+		handleToggleTodo,
+		isLoadingDelete,
+		isLoadingToggleTodo,
+	} = props
 	return (
-		<div className='container-todolist'>
+		<Row className='container-todolist'>
 			{todos.map((todo) => {
 				return (
-					<Todo
-						key={todo.todo_id}
-						todo={todo}
-						handleDeleteTodo={handleDeleteTodo}
-						handleToggleTodo={handleToggleTodo}
-						isDisabled={isDisabled}
-					/>
+					<Col key={todo.todo_id}>
+						<Todo
+							todo={todo}
+							handleDeleteTodo={handleDeleteTodo}
+							handleToggleTodo={handleToggleTodo}
+							isLoadingDelete={isLoadingDelete}
+							isLoadingToggleTodo={isLoadingToggleTodo}
+						/>
+					</Col>
 				)
 			})}
-		</div>
+		</Row>
 	)
 }

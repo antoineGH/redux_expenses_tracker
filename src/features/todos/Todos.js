@@ -10,6 +10,7 @@ import {
 	loadTodos,
 	selectIsLoadingAddTodo,
 	selectIsLoadingDeleteTodo,
+	selectIsLoadingToggleTodo,
 } from './todosSlice'
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
@@ -23,6 +24,7 @@ export default function Todos() {
 	const hasError = useSelector(selectHasError)
 	const isLoadingAddTodo = useSelector(selectIsLoadingAddTodo)
 	const isLoadingDeleteTodo = useSelector(selectIsLoadingDeleteTodo)
+	const isLoadingToggleTodo = useSelector(selectIsLoadingToggleTodo)
 	const dispatch = useDispatch()
 	const { Title } = Typography
 
@@ -59,7 +61,7 @@ export default function Todos() {
 			<Title level={2}>Todos</Title>
 			<TodoForm
 				handleAddTodo={handleAddTodo}
-				isDisabled={isLoadingAddTodo}
+				isLoadingAdd={isLoadingAddTodo}
 			/>
 			{hasError && (
 				<>
@@ -77,7 +79,8 @@ export default function Todos() {
 					todos={todos}
 					handleDeleteTodo={handleDeleteTodo}
 					handleToggleTodo={handleToggleTodo}
-					isDisabled={isLoadingDeleteTodo}
+					isLoadingDelete={isLoadingDeleteTodo}
+					isLoadingToggleTodo={isLoadingToggleTodo}
 				/>
 			)}
 			{!isLoading && todos.length === 0 && <p>No Todos</p>}

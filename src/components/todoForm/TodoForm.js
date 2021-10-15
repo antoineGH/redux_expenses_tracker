@@ -6,7 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import './TodoForm.css'
 
 export default function TodoForm(props) {
-	const { isDisabled, handleAddTodo } = props
+	const { isLoadingAdd, handleAddTodo } = props
 	const { Text } = Typography
 	const antIcon = <LoadingOutlined style={{ fontSize: 16 }} spin />
 
@@ -58,15 +58,16 @@ export default function TodoForm(props) {
 							type='text'
 							onChange={() => setIsCompleted(!isCompleted)}
 							checked={isCompleted}
+							loading={isLoadingAdd}
 						/>
 					</Form.Item>
 					<Form.Item>
 						<Button
 							type='primary'
 							onClick={() => handleSubmit()}
-							disabled={isDisabled}>
+							disabled={isLoadingAdd}>
 							Add{' '}
-							{isDisabled && (
+							{isLoadingAdd && (
 								<Spin size='small' indicator={antIcon} />
 							)}
 						</Button>

@@ -1,23 +1,45 @@
 import React from 'react'
+import { Card, Switch } from 'antd'
 import './Todo.css'
 
 export default function Todo(props) {
-	const { todo, handleDeleteTodo, handleToggleTodo, isDisabled } = props
+	const {
+		todo,
+		handleDeleteTodo,
+		handleToggleTodo,
+		isLoadingDelete,
+		isLoadingToggleTodo,
+	} = props
 
 	return (
-		<div className='container-todo'>
-			<span>{todo.todo_description}</span>
-			<input
-				type='checkbox'
-				checked={todo.completed}
-				onChange={() => handleToggleTodo(todo.todo_id, !todo.completed)}
-			/>
-			<button
-				className='btn-delete'
-				onClick={() => handleDeleteTodo(todo.todo_id)}
-				disabled={isDisabled}>
-				&#9587;
-			</button>
-		</div>
+		<>
+			<Card
+				title={todo.todo_description}
+				extra={
+					<button
+						className='btn-delete'
+						onClick={() => handleDeleteTodo(todo.todo_id)}
+						disabled={isLoadingDelete}>
+						&#9587;
+					</button>
+				}
+				style={{ width: 300 }}>
+				<p>Card content</p>
+				<Switch
+					id='completed'
+					name='completed'
+					// onChange={() => setIsCompleted(!isCompleted)}
+					checked={todo.complete}
+					disabled={isLoadingToggleTodo}
+				/>
+				<input
+					type='checkbox'
+					checked={todo.completed}
+					onChange={() =>
+						handleToggleTodo(todo.todo_id, !todo.completed)
+					}
+				/>
+			</Card>
+		</>
 	)
 }

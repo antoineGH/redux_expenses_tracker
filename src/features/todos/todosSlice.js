@@ -12,6 +12,8 @@ const initialValue = {
 	hasError: false,
 	isLoadingAddTodo: false,
 	hasErrorAddTodo: false,
+	isLoadingToggleTodo: false,
+	hasErrorToggleTodo: false,
 	isLoadingDeleteTodo: false,
 	hasErrorDeleteTodo: false,
 }
@@ -145,8 +147,8 @@ export const todoSlice = createSlice({
 			state.hasErrorAddTodo = true
 		},
 		[toggleCheck.pending]: (state) => {
-			state.isLoadingAddTodo = true
-			state.hasErrorAddTodo = false
+			state.isLoadingToggleTodo = true
+			state.hasErrorToggleTodo = false
 		},
 		[toggleCheck.fulfilled]: (state, action) => {
 			const indexObject = state.value.findIndex(
@@ -154,12 +156,12 @@ export const todoSlice = createSlice({
 			)
 			state.value[indexObject].completed =
 				!state.value[indexObject].completed
-			state.isLoadingAddTodo = false
-			state.hasErrorAddTodo = false
+			state.isLoadingToggleTodo = false
+			state.hasErrorToggleTodo = false
 		},
 		[toggleCheck.rejected]: (state) => {
-			state.isLoadingAddTodo = false
-			state.hasErrorAddTodo = true
+			state.isLoadingToggleTodo = false
+			state.hasErrorToggleTodo = true
 		},
 		[deleteTodo.pending]: (state) => {
 			state.isLoadingDeleteTodo = true
@@ -188,4 +190,6 @@ export const selectIsLoadingAddTodo = (state) => state.todos.isLoadingAddTodo
 export const selecthasErrorAddTodo = (state) => state.todos.hasErrorAddTodo
 export const selectIsLoadingDeleteTodo = (state) =>
 	state.todos.isLoadingDeleteTodo
+export const selectIsLoadingToggleTodo = (state) =>
+	state.todos.isLoadingToggleTodo
 export default todoSlice.reducer
