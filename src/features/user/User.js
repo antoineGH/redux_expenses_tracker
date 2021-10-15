@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
-	loadUser,
 	selectUser,
 	deleteUser,
 	selectUserIsLoading,
@@ -24,11 +23,6 @@ export default function User() {
 	const isLoadingUpdateUser = useSelector(selectUpdateUserIsLoading)
 	const hasErrorUpdateUser = useSelector(selectUpdateUserHasError)
 	const hasErrorDeleteUser = useSelector(selectDeleteUserHasError)
-
-	useEffect(() => {
-		dispatch(loadUser())
-	}, [dispatch])
-	// TODO REMOVE USEEFFECT LOADUSER USER
 
 	const handleUpdateAccount = (firstName, lastName, password) => {
 		if (
