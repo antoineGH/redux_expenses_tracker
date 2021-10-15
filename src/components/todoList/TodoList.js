@@ -6,6 +6,7 @@ import './TodoList.css'
 export default function TodoList(props) {
 	const {
 		todos,
+		user,
 		handleDeleteTodo,
 		handleToggleTodo,
 		isLoadingDelete,
@@ -22,6 +23,7 @@ export default function TodoList(props) {
 							<Todo
 								count={count + 1}
 								todo={todo}
+								user={user}
 								handleDeleteTodo={handleDeleteTodo}
 								handleToggleTodo={handleToggleTodo}
 								isLoadingDelete={isLoadingDelete}

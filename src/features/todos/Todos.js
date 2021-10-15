@@ -12,6 +12,7 @@ import {
 	selectIsLoadingDeleteTodo,
 	selectIsLoadingToggleTodo,
 } from './todosSlice'
+import { selectUser } from '../user/userSlice'
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
 import TodoList from '../../components/todoList/TodoList'
@@ -20,6 +21,7 @@ import { Spin, Typography } from 'antd'
 
 export default function Todos() {
 	const todos = useSelector(selectTodos)
+	const user = useSelector(selectUser)
 	const isLoading = useSelector(selectIsLoading)
 	const hasError = useSelector(selectHasError)
 	const isLoadingAddTodo = useSelector(selectIsLoadingAddTodo)
@@ -77,6 +79,7 @@ export default function Todos() {
 			{!isLoading && (
 				<TodoList
 					todos={todos}
+					user={user}
 					handleDeleteTodo={handleDeleteTodo}
 					handleToggleTodo={handleToggleTodo}
 					isLoadingDelete={isLoadingDeleteTodo}

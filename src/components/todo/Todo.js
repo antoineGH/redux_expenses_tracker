@@ -5,6 +5,7 @@ import './Todo.css'
 export default function Todo(props) {
 	const {
 		todo,
+		user,
 		count,
 		handleDeleteTodo,
 		handleToggleTodo,
@@ -25,6 +26,9 @@ export default function Todo(props) {
 					</button>
 				}
 				style={{ width: 300 }}>
+				{/* <p className='text-capitalize'>
+					{user['first_name']} {user['last_name']}
+				</p> */}
 				<p>Todo n°{count}</p>
 				<p>Status</p>
 				<Switch

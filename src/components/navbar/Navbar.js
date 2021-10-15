@@ -2,7 +2,7 @@ import React from 'react'
 import { logout } from '../../auth/authHook'
 import { useHistory } from 'react-router'
 import { Layout } from 'antd'
-import { Avatar, Typography, Menu, Dropdown } from 'antd'
+import { Avatar, Typography, Menu, Dropdown, Skeleton } from 'antd'
 import {
 	UserOutlined,
 	LogoutOutlined,
@@ -13,7 +13,8 @@ import {} from 'antd'
 import './Navbar.css'
 
 export default function Navbar(props) {
-	const { logged, payload } = props
+	const { logged, user } = props
+
 	const history = useHistory()
 	const { Header } = Layout
 	const { Text } = Typography
@@ -72,9 +73,23 @@ export default function Navbar(props) {
 					<Dropdown overlay={logged ? menu_auth : menu_unauth}>
 						<span className='container-avatar'>
 							<Text className='avatar-username' strong>
-								{logged
-									? `${payload.first_name} ${payload.last_name}`
-									: 'Not Connected'}
+								{logged ? (
+									user ? (
+										`${user['first_name']} ${user['last_name']}`
+									) : (
+										<Skeleton.Input
+											style={{
+												width: 120,
+												height: 20,
+												marginTop: 22,
+											}}
+											active
+											size={'default'}
+										/>
+									)
+								) : (
+									'Not Connected'
+								)}
 							</Text>
 							<Avatar shape='square' icon={<UserOutlined />} />
 						</span>
