@@ -25,21 +25,16 @@ export default function Todo(props) {
 					</button>
 				}
 				style={{ width: 300 }}>
-				<p>Todo #{count}</p>
+				<p>Todo n°{count}</p>
 				<p>Status</p>
 				<Switch
 					id='completed'
 					name='completed'
-					// onChange={() => setIsCompleted(!isCompleted)}
-					checked={todo.complete}
-					disabled={isLoadingToggleTodo}
-				/>
-				<input
-					type='checkbox'
-					checked={todo.completed}
 					onChange={() =>
 						handleToggleTodo(todo.todo_id, !todo.completed)
 					}
+					defaultChecked={todo.completed}
+					disabled={isLoadingToggleTodo}
 				/>
 			</Card>
 		</>

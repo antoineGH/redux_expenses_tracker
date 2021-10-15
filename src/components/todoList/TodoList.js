@@ -13,21 +13,23 @@ export default function TodoList(props) {
 	} = props
 	return (
 		<Row className='container-todolist'>
-			{todos.map((todo, count) => {
-				count++
-				return (
-					<Col key={todo.todo_id}>
-						<Todo
-							count={count}
-							todo={todo}
-							handleDeleteTodo={handleDeleteTodo}
-							handleToggleTodo={handleToggleTodo}
-							isLoadingDelete={isLoadingDelete}
-							isLoadingToggleTodo={isLoadingToggleTodo}
-						/>
-					</Col>
-				)
-			})}
+			{[]
+				.concat(todos)
+				.sort((a, b) => (a.todo_id > b.todo_id ? 1 : -1))
+				.map((todo, count) => {
+					return (
+						<Col key={todo.todo_id}>
+							<Todo
+								count={count + 1}
+								todo={todo}
+								handleDeleteTodo={handleDeleteTodo}
+								handleToggleTodo={handleToggleTodo}
+								isLoadingDelete={isLoadingDelete}
+								isLoadingToggleTodo={isLoadingToggleTodo}
+							/>
+						</Col>
+					)
+				})}
 		</Row>
 	)
 }
