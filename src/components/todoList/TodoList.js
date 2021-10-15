@@ -13,10 +13,12 @@ export default function TodoList(props) {
 	} = props
 	return (
 		<Row className='container-todolist'>
-			{todos.map((todo) => {
+			{todos.map((todo, count) => {
+				count++
 				return (
 					<Col key={todo.todo_id}>
 						<Todo
+							count={count}
 							todo={todo}
 							handleDeleteTodo={handleDeleteTodo}
 							handleToggleTodo={handleToggleTodo}

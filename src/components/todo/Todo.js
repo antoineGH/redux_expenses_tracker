@@ -5,6 +5,7 @@ import './Todo.css'
 export default function Todo(props) {
 	const {
 		todo,
+		count,
 		handleDeleteTodo,
 		handleToggleTodo,
 		isLoadingDelete,
@@ -24,7 +25,8 @@ export default function Todo(props) {
 					</button>
 				}
 				style={{ width: 300 }}>
-				<p>Card content</p>
+				<p>Todo #{count}</p>
+				<p>Status</p>
 				<Switch
 					id='completed'
 					name='completed'
