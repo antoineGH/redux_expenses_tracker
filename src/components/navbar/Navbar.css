@@ -16,6 +16,7 @@
 
 .avatar-username {
 	padding: 0rem 1rem;
+	text-transform: capitalize;
 }
 
 .ant-avatar {
