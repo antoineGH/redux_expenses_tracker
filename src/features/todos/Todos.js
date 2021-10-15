@@ -72,18 +72,15 @@ export default function Todos() {
 					<Spin />
 				</div>
 			)}
-			{!isLoading && todos ? (
+			{!isLoading && (
 				<TodoList
 					todos={todos}
 					handleDeleteTodo={handleDeleteTodo}
 					handleToggleTodo={handleToggleTodo}
 					isDisabled={isLoadingDeleteTodo}
 				/>
-			) : (
-				<>
-					<p>No Todos</p>
-				</>
 			)}
+			{!isLoading && todos.length === 0 && <p>No Todos</p>}
 		</>
 	)
 }
