@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, Switch } from 'antd'
-import './Todo.css'
+import { Card, Switch, Button } from 'antd'
+import { CloseOutlined } from '@ant-design/icons'
 
 export default function Todo(props) {
 	const {
@@ -18,17 +18,17 @@ export default function Todo(props) {
 			<Card
 				title={todo.todo_description}
 				extra={
-					<button
-						className='btn-delete'
+					<Button
 						onClick={() => handleDeleteTodo(todo.todo_id)}
-						disabled={isLoadingDelete}>
-						&#9587;
-					</button>
+						loading={isLoadingDelete}
+						icon={<CloseOutlined />}></Button>
 				}
 				style={{ width: 300 }}>
-				{/* <p className='text-capitalize'>
-					{user['first_name']} {user['last_name']}
-				</p> */}
+				{todo.length >= 1 && (
+					<p className='text-capitalize'>
+						{user['first_name']} {user['last_name']}
+					</p>
+				)}
 				<p>Todo n°{count}</p>
 				<p>Status</p>
 				<Switch

@@ -1,4 +1,51 @@
-.container-todolist {
+.row-todolist {
+	display: flex;
+	justify-content: center;
+	margin-top: 1.5rem;
+	gap: 1rem;
+}
+
+.col-todo {
+	margin: 0.8rem auto;
+}
+
+.text-filter {
+	color: rgba(0, 0, 0, 0.45);
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+
+.row-topmenu {
+	max-width: 1000px;
 	margin: auto;
-	margin-top: 1rem;
+	display: flex;
+	flex-direction: row;
+	gap: 1.5rem;
+}
+
+.ant-switch-handle {
+	background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.text-capitalize {
+	text-transform: capitalize;
+}
+
+.col-search,
+.col-add,
+.col-filter,
+.col-stat div {
+	display: flex;
+	flex-direction: row;
+	align-self: center;
+	align-content: center;
+	align-items: center;
+}
+
+.col-stat div {
+	justify-content: space-evenly;
+}
+
+.form-item {
+	margin-right: 6px !important;
 }

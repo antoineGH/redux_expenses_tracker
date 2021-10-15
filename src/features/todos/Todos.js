@@ -15,9 +15,10 @@ import {
 import { selectUser } from '../user/userSlice'
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
+import TopMenu from '../../components/topMenu/TopMenu'
 import TodoList from '../../components/todoList/TodoList'
 import { openNotificationWithIcon } from '../../utils/notification'
-import { Spin, Typography } from 'antd'
+import { Spin, Typography, Row, Col } from 'antd'
 
 export default function Todos() {
 	const todos = useSelector(selectTodos)
@@ -61,32 +62,39 @@ export default function Todos() {
 	return (
 		<>
 			<Title level={2}>Todos</Title>
-			<TodoForm
-				handleAddTodo={handleAddTodo}
-				isLoadingAdd={isLoadingAddTodo}
-			/>
-			{hasError && (
-				<>
-					<p>Error Fetching the API.</p>
-					<button onClick={handleTryAgain}>Try Again</button>
-				</>
-			)}
-			{isLoading && (
-				<div className='div-barloader'>
-					<Spin />
-				</div>
-			)}
-			{!isLoading && (
-				<TodoList
+			<Row justify='flex-start' align='middle' className='row-topmenu'>
+				<TopMenu
 					todos={todos}
-					user={user}
-					handleDeleteTodo={handleDeleteTodo}
-					handleToggleTodo={handleToggleTodo}
-					isLoadingDelete={isLoadingDeleteTodo}
-					isLoadingToggleTodo={isLoadingToggleTodo}
+					handleAddTodo={handleAddTodo}
+					isLoadingAdd={isLoadingAddTodo}
 				/>
-			)}
-			{!isLoading && todos.length === 0 && <p>No Todos</p>}
+			</Row>
+			<Row className='row-todolist'>
+				{hasError && (
+					<Col>
+						<p>Error Fetching the API.</p>
+						<button onClick={handleTryAgain}>Try Again</button>
+					</Col>
+				)}
+				{isLoading && (
+					<Col>
+						<div className='div-barloader'>
+							<Spin />
+						</div>
+					</Col>
+				)}
+				{!isLoading && (
+					<TodoList
+						todos={todos}
+						user={user}
+						handleDeleteTodo={handleDeleteTodo}
+						handleToggleTodo={handleToggleTodo}
+						isLoadingDelete={isLoadingDeleteTodo}
+						isLoadingToggleTodo={isLoadingToggleTodo}
+					/>
+				)}
+				{!isLoading && todos.length === 0 && <p>No Todos</p>}
+			</Row>
 		</>
 	)
 }
