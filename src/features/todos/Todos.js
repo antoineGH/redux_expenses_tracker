@@ -14,7 +14,6 @@ import {
 } from './todosSlice'
 import { selectUser } from '../user/userSlice'
 import './Todos.css'
-import TodoForm from '../../components/todoForm/TodoForm'
 import TopMenu from '../../components/topMenu/TopMenu'
 import TodoList from '../../components/todoList/TodoList'
 import { openNotificationWithIcon } from '../../utils/notification'

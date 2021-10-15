@@ -17,10 +17,12 @@
 
 .row-topmenu {
 	max-width: 1000px;
-	margin: auto;
 	display: flex;
 	flex-direction: row;
 	gap: 1.5rem;
+	margin: auto;
+	justify-content: center;
+	margin-top: 1.5rem;
 }
 
 .ant-switch-handle {
@@ -48,4 +50,9 @@
 
 .form-item {
 	margin-right: 6px !important;
+}
+
+.add-errors {
+	position: absolute;
+	top: 2rem;
 }

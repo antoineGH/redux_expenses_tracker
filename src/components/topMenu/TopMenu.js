@@ -11,7 +11,7 @@ export default function TopMenu(props) {
 			<Col span={3} className='col-stat'>
 				<Statistic title='Current Todos' value={todos.length} />
 			</Col>
-			<Col span={8} className='col-add'>
+			<Col span={9} className='col-add'>
 				<TodoForm
 					handleAddTodo={handleAddTodo}
 					isLoadingAdd={isLoadingAddTodo}

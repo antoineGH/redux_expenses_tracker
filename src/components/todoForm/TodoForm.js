@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Spin, Form, Input, Button, Typography, Switch, Col } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 export default function TodoForm(props) {
 	const { isLoadingAdd, handleAddTodo } = props
@@ -63,8 +63,9 @@ export default function TodoForm(props) {
 					<Button
 						type='primary'
 						onClick={() => handleSubmit()}
+						icon={<PlusOutlined style={{ fontSize: '.8rem' }} />}
 						disabled={isLoadingAdd}>
-						Add{' '}
+						Add
 						{isLoadingAdd && (
 							<Spin size='small' indicator={antIcon} />
 						)}
@@ -72,7 +73,7 @@ export default function TodoForm(props) {
 				</Form.Item>
 			</Form>
 
-			<div className='errors'>
+			<div className='add-errors'>
 				{errors.todo_description && touched.todo_description && (
 					<Text type='danger'>{errors.todo_description}</Text>
 				)}
