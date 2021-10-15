@@ -12,6 +12,8 @@ const initialValue = {
 	hasError: false,
 	isLoadingAddTodo: false,
 	hasErrorAddTodo: false,
+	isLoadingDeleteTodo: false,
+	hasErrorDeleteTodo: false,
 }
 
 export const loadTodos = createAsyncThunk('todos/getAllTodos', async () => {
@@ -151,18 +153,18 @@ export const todoSlice = createSlice({
 			state.hasErrorAddTodo = true
 		},
 		[deleteTodo.pending]: (state) => {
-			state.isLoadingAddTodo = true
-			state.hasErrorAddTodo = false
+			state.isLoadingDeleteTodo = true
+			state.hasErrorDeleteTodo = false
 		},
 		[deleteTodo.fulfilled]: (state, action) => {
 			const { todo_id } = action.payload
 			state.value = state.value.filter((todo) => todo.todo_id !== todo_id)
-			state.isLoadingAddTodo = false
-			state.hasErrorAddTodo = false
+			state.isLoadingDeleteTodo = false
+			state.hasErrorDeleteTodo = false
 		},
 		[deleteTodo.rejected]: (state) => {
-			state.isLoadingAddTodo = false
-			state.hasErrorAddTodo = true
+			state.isLoadingDeleteTodo = false
+			state.hasErrorDeleteTodo = true
 		},
 	},
 })
@@ -175,4 +177,6 @@ export const selectIsLoading = (state) => state.todos.isLoading
 export const selectHasError = (state) => state.todos.hasError
 export const selectIsLoadingAddTodo = (state) => state.todos.isLoadingAddTodo
 export const selecthasErrorAddTodo = (state) => state.todos.hasErrorAddTodo
+export const selectIsLoadingDeleteTodo = (state) =>
+	state.todos.isLoadingDeleteTodo
 export default todoSlice.reducer

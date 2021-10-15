@@ -3,7 +3,7 @@ import Todo from '../todo/Todo'
 import './TodoList.css'
 
 export default function TodoList(props) {
-	const { todos, handleDeleteTodo, handleToggleTodo } = props
+	const { todos, handleDeleteTodo, handleToggleTodo, isDisabled } = props
 	return (
 		<div className='container-todolist'>
 			{todos.map((todo) => {
@@ -13,6 +13,7 @@ export default function TodoList(props) {
 						todo={todo}
 						handleDeleteTodo={handleDeleteTodo}
 						handleToggleTodo={handleToggleTodo}
+						isDisabled={isDisabled}
 					/>
 				)
 			})}

@@ -9,6 +9,7 @@ import {
 	toggleCheck,
 	loadTodos,
 	selectIsLoadingAddTodo,
+	selectIsLoadingDeleteTodo,
 } from './todosSlice'
 import './Todos.css'
 import TodoForm from '../../components/todoForm/TodoForm'
@@ -21,6 +22,7 @@ export default function Todos() {
 	const isLoading = useSelector(selectIsLoading)
 	const hasError = useSelector(selectHasError)
 	const isLoadingAddTodo = useSelector(selectIsLoadingAddTodo)
+	const isLoadingDeleteTodo = useSelector(selectIsLoadingDeleteTodo)
 	const dispatch = useDispatch()
 	const { Title } = Typography
 
@@ -59,22 +61,28 @@ export default function Todos() {
 				handleAddTodo={handleAddTodo}
 				isDisabled={isLoadingAddTodo}
 			/>
+			{hasError && (
+				<>
+					<p>Error Fetching the API.</p>
+					<button onClick={handleTryAgain}>Try Again</button>
+				</>
+			)}
 			{isLoading && (
 				<div className='div-barloader'>
 					<Spin />
 				</div>
 			)}
-			{hasError ? (
-				<>
-					<p>Error Fetching the API.</p>
-					<button onClick={handleTryAgain}>Try Again</button>
-				</>
-			) : (
+			{!isLoading && todos ? (
 				<TodoList
 					todos={todos}
 					handleDeleteTodo={handleDeleteTodo}
 					handleToggleTodo={handleToggleTodo}
+					isDisabled={isLoadingDeleteTodo}
 				/>
+			) : (
+				<>
+					<p>No Todos</p>
+				</>
 			)}
 		</>
 	)

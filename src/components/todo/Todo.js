@@ -2,7 +2,7 @@ import React from 'react'
 import './Todo.css'
 
 export default function Todo(props) {
-	const { todo, handleDeleteTodo, handleToggleTodo } = props
+	const { todo, handleDeleteTodo, handleToggleTodo, isDisabled } = props
 
 	return (
 		<div className='container-todo'>
@@ -14,7 +14,8 @@ export default function Todo(props) {
 			/>
 			<button
 				className='btn-delete'
-				onClick={() => handleDeleteTodo(todo.todo_id)}>
+				onClick={() => handleDeleteTodo(todo.todo_id)}
+				disabled={isDisabled}>
 				&#9587;
 			</button>
 		</div>

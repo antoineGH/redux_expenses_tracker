@@ -27,6 +27,7 @@ export default function TodoForm(props) {
 				const { todo_description } = values
 				handleAddTodo(todo_description, isCompleted)
 				values.todo_description = ''
+				setIsCompleted(false)
 			},
 		})
 
@@ -56,7 +57,7 @@ export default function TodoForm(props) {
 							name='completed'
 							type='text'
 							onChange={() => setIsCompleted(!isCompleted)}
-							checked={values.completed}
+							checked={isCompleted}
 						/>
 					</Form.Item>
 					<Form.Item>
