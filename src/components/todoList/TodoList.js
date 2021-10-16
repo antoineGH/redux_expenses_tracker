@@ -19,11 +19,10 @@ export default function TodoList(props) {
 			{[]
 				.concat(todos)
 				.sort((a, b) => (a.todo_id > b.todo_id ? 1 : -1))
-				.map((todo, count) => {
+				.map((todo) => {
 					return (
 						<Col key={todo.todo_id} className='col-todo'>
 							<Todo
-								count={count + 1}
 								todo={todo}
 								user={user}
 								handleDeleteTodo={handleDeleteTodo}
