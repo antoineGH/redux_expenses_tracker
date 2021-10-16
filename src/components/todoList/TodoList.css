@@ -1,8 +1,10 @@
 .row-todolist {
 	display: flex;
 	justify-content: center;
-	margin-top: 1.5rem;
 	gap: 1rem;
+	max-width: 965px;
+	margin: auto;
+	margin-top: 1.5rem;
 }
 
 .col-todo {
@@ -55,4 +57,40 @@
 .add-errors {
 	position: absolute;
 	top: 2rem;
+}
+
+.btn-closetodo {
+	border: none;
+}
+
+.col-titleTodo {
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 0.5rem;
+}
+
+.col-btnClose {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.col-titleTodo h4 {
+	font-size: 1.1rem !important;
+	margin-bottom: 0.1rem !important;
+}
+
+.col-userTodo {
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 0.5rem;
+}
+
+.col-switchTodo {
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.ant-card-body {
+	padding: 16px;
 }
