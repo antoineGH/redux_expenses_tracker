@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Spin, Form, Input, Button, Typography, Switch, Col } from 'antd'
+import { Spin, Form, Input, Button, Typography, Switch } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 export default function TodoForm(props) {
