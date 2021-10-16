@@ -1,5 +1,5 @@
 .div-barloader {
 	display: flex;
 	justify-content: center;
-	margin: 2rem;
+	margin: 1rem auto;
 }

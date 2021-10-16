@@ -81,10 +81,8 @@ export default function Todos() {
 					</Col>
 				)}
 				{isLoading && (
-					<Col>
-						<div className='div-barloader'>
-							<Spin />
-						</div>
+					<Col className='div-barloader'>
+						<Spin />
 					</Col>
 				)}
 				{!isLoading && (
