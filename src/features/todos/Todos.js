@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
 	selectTodos,
@@ -29,6 +29,8 @@ export default function Todos() {
 	const isLoadingToggleTodo = useSelector(selectIsLoadingToggleTodo)
 	const dispatch = useDispatch()
 	const { Title } = Typography
+
+	const [sort, setSort] = useState(true)
 
 	useEffect(() => {
 		dispatch(loadTodos())
@@ -64,8 +66,11 @@ export default function Todos() {
 			<Row justify='flex-start' align='middle' className='row-topmenu'>
 				<TopMenu
 					todos={todos}
+					sort={sort}
+					setSort={setSort}
 					handleAddTodo={handleAddTodo}
 					isLoadingAdd={isLoadingAddTodo}
+					user={user}
 				/>
 			</Row>
 			<Row className='row-todolist'>
@@ -86,6 +91,7 @@ export default function Todos() {
 					<TodoList
 						todos={todos}
 						user={user}
+						sort={sort}
 						handleDeleteTodo={handleDeleteTodo}
 						handleToggleTodo={handleToggleTodo}
 						isLoadingDelete={isLoadingDeleteTodo}

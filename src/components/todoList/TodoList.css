@@ -1,14 +1,16 @@
 .row-todolist {
 	display: flex;
 	justify-content: center;
-	gap: 1rem;
 	max-width: 965px;
 	margin: auto;
 	margin-top: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .col-todo {
-	margin: 0.8rem auto;
+	margin: 15px 15px;
 }
 
 .text-filter {
