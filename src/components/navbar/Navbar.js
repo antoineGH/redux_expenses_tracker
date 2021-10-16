@@ -91,7 +91,30 @@ export default function Navbar(props) {
 									'Not Connected'
 								)}
 							</Text>
-							<Avatar shape='square' icon={<UserOutlined />} />
+							{logged ? (
+								user ? (
+									<Avatar
+										shape='square'
+										icon={<UserOutlined />}
+									/>
+								) : (
+									<Skeleton.Input
+										style={{
+											width: 32,
+											height: 32,
+											marginTop: 16,
+											marginRight: 24,
+										}}
+										active
+										size={'default'}
+									/>
+								)
+							) : (
+								<Avatar
+									shape='square'
+									icon={<UserOutlined />}
+								/>
+							)}
 						</span>
 					</Dropdown>
 				</>
