@@ -58,9 +58,13 @@ export default function Todos() {
 		dispatch(toggleCheck({ todo_id, completed }))
 	}
 
-	const handleSearch = (searchValue) => {
-		setSearchParam(searchValue)
-		console.log(searchValue)
+	const search = () => {
+		const todosSearch = todos.filter((todo) => {
+			return todo.todo_description
+				.toLowerCase()
+				.includes(searchParam.toLowerCase())
+		})
+		return todosSearch
 	}
 
 	const handleTryAgain = () => {
@@ -72,13 +76,13 @@ export default function Todos() {
 			<Title level={2}>Todos</Title>
 			<Row justify='flex-start' align='middle' className='row-topmenu'>
 				<TopMenu
-					todos={todos}
+					todos={searchParam ? search() : todos}
 					sortBy={sortBy}
 					setSortBy={setSortBy}
 					sort={sort}
 					setSort={setSort}
 					searchParam={searchParam}
-					handleSearch={handleSearch}
+					setSearchParam={setSearchParam}
 					handleAddTodo={handleAddTodo}
 					isLoadingAdd={isLoadingAddTodo}
 					user={user}
@@ -98,7 +102,7 @@ export default function Todos() {
 				)}
 				{!isLoading && (
 					<TodoList
-						todos={todos}
+						todos={searchParam ? search() : todos}
 						user={user}
 						sort={sort}
 						sortBy={sortBy}
