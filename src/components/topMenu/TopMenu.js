@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TodoForm from '../todoForm/TodoForm'
 import { Col, Statistic, Button, Input, Menu, Dropdown, Row } from 'antd'
 import {
@@ -15,10 +15,12 @@ export default function TopMenu(props) {
 		setSortBy,
 		sort,
 		setSort,
+		handleSearch,
 		handleAddTodo,
 		isLoadingAddTodo,
 	} = props
 	const { Search } = Input
+	const [searchValue, setSearchValue] = useState('')
 
 	const menu = (
 		<Menu>
@@ -77,7 +79,11 @@ export default function TopMenu(props) {
 				{' '}
 				<Search
 					placeholder='Search Todo'
-					// onSearch={onSearch}
+					type='text'
+					id='search'
+					onSearch={() => handleSearch(searchValue)}
+					onChange={(e) => setSearchValue(e.target.value)}
+					value={searchValue}
 					enterButton
 				/>
 			</Col>

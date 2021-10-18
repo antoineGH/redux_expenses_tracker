@@ -10,6 +10,7 @@ export default function TodoList(props) {
 		user,
 		sort,
 		sortBy,
+		searchParam,
 		handleDeleteTodo,
 		handleToggleTodo,
 		isLoadingDelete,

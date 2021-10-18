@@ -32,6 +32,7 @@ export default function Todos() {
 
 	const [sort, setSort] = useState(true)
 	const [sortBy, setSortBy] = useState('Date')
+	const [searchParam, setSearchParam] = useState('')
 
 	useEffect(() => {
 		dispatch(loadTodos())
@@ -54,9 +55,12 @@ export default function Todos() {
 	}
 
 	const handleToggleTodo = (todo_id, completed) => {
-		// sortBy if Date dispatch ToggleDate, if Status dispatch ToggleStatus
-		console.log('Dispatch by =>' + sortBy)
-		// dispatch(toggleCheck({ todo_id, completed }))
+		dispatch(toggleCheck({ todo_id, completed }))
+	}
+
+	const handleSearch = (searchValue) => {
+		setSearchParam(searchValue)
+		console.log(searchValue)
 	}
 
 	const handleTryAgain = () => {
@@ -73,6 +77,8 @@ export default function Todos() {
 					setSortBy={setSortBy}
 					sort={sort}
 					setSort={setSort}
+					searchParam={searchParam}
+					handleSearch={handleSearch}
 					handleAddTodo={handleAddTodo}
 					isLoadingAdd={isLoadingAddTodo}
 					user={user}
@@ -96,6 +102,7 @@ export default function Todos() {
 						user={user}
 						sort={sort}
 						sortBy={sortBy}
+						searchParam={searchParam}
 						handleDeleteTodo={handleDeleteTodo}
 						handleToggleTodo={handleToggleTodo}
 						isLoadingDelete={isLoadingDeleteTodo}
