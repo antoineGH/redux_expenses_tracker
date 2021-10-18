@@ -13,6 +13,11 @@
 	margin: 15px 15px;
 }
 
+.col-noresult {
+	margin: auto;
+	margin-top: 1rem;
+}
+
 .text-filter {
 	color: rgba(0, 0, 0, 0.45);
 	font-size: 14px;

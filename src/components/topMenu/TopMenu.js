@@ -15,7 +15,7 @@ export default function TopMenu(props) {
 		setSortBy,
 		sort,
 		setSort,
-		handleSearch,
+		setSearchParam,
 		handleAddTodo,
 		isLoadingAddTodo,
 	} = props
@@ -81,7 +81,7 @@ export default function TopMenu(props) {
 					placeholder='Search Todo'
 					type='text'
 					id='search'
-					onSearch={() => handleSearch(searchValue)}
+					onSearch={() => setSearchParam(searchValue)}
 					onChange={(e) => setSearchValue(e.target.value)}
 					value={searchValue}
 					enterButton

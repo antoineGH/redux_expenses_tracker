@@ -10,7 +10,6 @@ export default function TodoList(props) {
 		user,
 		sort,
 		sortBy,
-		searchParam,
 		handleDeleteTodo,
 		handleToggleTodo,
 		isLoadingDelete,
@@ -41,23 +40,32 @@ export default function TodoList(props) {
 
 	return (
 		<>
-			{[]
-				.concat(todos)
-				.sort(selectSort)
-				.map((todo) => {
-					return (
-						<Col key={todo.todo_id} className='col-todo' span={7}>
-							<Todo
-								todo={todo}
-								user={user}
-								handleDeleteTodo={handleDeleteTodo}
-								handleToggleTodo={handleToggleTodo}
-								isLoadingDelete={isLoadingDelete}
-								isLoadingToggleTodo={isLoadingToggleTodo}
-							/>
-						</Col>
-					)
-				})}
+			{todos.length >= 1 ? (
+				[]
+					.concat(todos)
+					.sort(selectSort)
+					.map((todo) => {
+						return (
+							<Col
+								key={todo.todo_id}
+								className='col-todo'
+								span={7}>
+								<Todo
+									todo={todo}
+									user={user}
+									handleDeleteTodo={handleDeleteTodo}
+									handleToggleTodo={handleToggleTodo}
+									isLoadingDelete={isLoadingDelete}
+									isLoadingToggleTodo={isLoadingToggleTodo}
+								/>
+							</Col>
+						)
+					})
+			) : (
+				<Col className='col-noresult'>
+					<p>No results from search</p>
+				</Col>
+			)}
 		</>
 	)
 }
