@@ -9,24 +9,40 @@ export default function TodoList(props) {
 		todos,
 		user,
 		sort,
+		sortBy,
 		handleDeleteTodo,
 		handleToggleTodo,
 		isLoadingDelete,
 		isLoadingToggleTodo,
 	} = props
 
-	const sortAsc = (a, b) => {
+	const sortDateAsc = (a, b) => {
 		return a.todo_id > b.todo_id ? 1 : -1
 	}
-	const sortDesc = (a, b) => {
+	const sortDateDesc = (a, b) => {
 		return a.todo_id < b.todo_id ? 1 : -1
+	}
+
+	const sortCompletedAsc = (a, b) => {
+		return a.completed === b.completed ? 0 : a.completed ? -1 : 1
+	}
+
+	const sortCompletedDesc = (a, b) => {
+		return a.completed === b.completed ? 0 : a.completed ? 1 : -1
+	}
+
+	const selectSort = (a, b) => {
+		if (sort && sortBy === 'Status') return sortCompletedAsc(a, b)
+		if (!sort && sortBy === 'Status') return sortCompletedDesc(a, b)
+		if (sort && sortBy === 'Date') return sortDateAsc(a, b)
+		return sortDateDesc(a, b)
 	}
 
 	return (
 		<>
 			{[]
 				.concat(todos)
-				.sort(sort ? sortAsc : sortDesc)
+				.sort(selectSort)
 				.map((todo) => {
 					return (
 						<Col key={todo.todo_id} className='col-todo' span={7}>

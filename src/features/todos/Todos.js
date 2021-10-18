@@ -17,7 +17,7 @@ import './Todos.css'
 import TopMenu from '../../components/topMenu/TopMenu'
 import TodoList from '../../components/todoList/TodoList'
 import { openNotificationWithIcon } from '../../utils/notification'
-import { Spin, Typography, Row, Col } from 'antd'
+import { Spin, Typography, Row, Col, Button } from 'antd'
 
 export default function Todos() {
 	const todos = useSelector(selectTodos)
@@ -31,6 +31,7 @@ export default function Todos() {
 	const { Title } = Typography
 
 	const [sort, setSort] = useState(true)
+	const [sortBy, setSortBy] = useState('Date')
 
 	useEffect(() => {
 		dispatch(loadTodos())
@@ -53,7 +54,9 @@ export default function Todos() {
 	}
 
 	const handleToggleTodo = (todo_id, completed) => {
-		dispatch(toggleCheck({ todo_id, completed }))
+		// sortBy if Date dispatch ToggleDate, if Status dispatch ToggleStatus
+		console.log('Dispatch by =>' + sortBy)
+		// dispatch(toggleCheck({ todo_id, completed }))
 	}
 
 	const handleTryAgain = () => {
@@ -66,6 +69,8 @@ export default function Todos() {
 			<Row justify='flex-start' align='middle' className='row-topmenu'>
 				<TopMenu
 					todos={todos}
+					sortBy={sortBy}
+					setSortBy={setSortBy}
 					sort={sort}
 					setSort={setSort}
 					handleAddTodo={handleAddTodo}
@@ -75,9 +80,9 @@ export default function Todos() {
 			</Row>
 			<Row className='row-todolist'>
 				{hasError && (
-					<Col>
+					<Col className='col-notodo'>
 						<p>Error Fetching the API.</p>
-						<button onClick={handleTryAgain}>Try Again</button>
+						<Button onClick={handleTryAgain}>Try Again</Button>
 					</Col>
 				)}
 				{isLoading && (
@@ -90,13 +95,16 @@ export default function Todos() {
 						todos={todos}
 						user={user}
 						sort={sort}
+						sortBy={sortBy}
 						handleDeleteTodo={handleDeleteTodo}
 						handleToggleTodo={handleToggleTodo}
 						isLoadingDelete={isLoadingDeleteTodo}
 						isLoadingToggleTodo={isLoadingToggleTodo}
 					/>
 				)}
-				{!isLoading && todos.length === 0 && <p>No Todos</p>}
+				{!hasError && !isLoading && todos.length === 0 && (
+					<p>No Todos</p>
+				)}
 			</Row>
 		</>
 	)

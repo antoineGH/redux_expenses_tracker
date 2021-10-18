@@ -1,5 +1,8 @@
-.div-barloader {
+.div-barloader,
+.col-notodo {
 	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 	justify-content: center;
 	margin: 1rem auto;
 }
